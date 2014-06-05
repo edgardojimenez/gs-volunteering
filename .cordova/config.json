@@ -1,0 +1,9 @@
+{
+    "lib": {
+        "www": {
+            "id": "com.phonegap.gs-voluteering",
+            "version": "1.0.0",
+            "uri": "https://github.com/phonegap/phonegap-gs-voluteering/archive/1.0.0.tar.gz"
+        }
+    }
+}

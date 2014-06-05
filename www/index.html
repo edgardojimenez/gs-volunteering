@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html class="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+
+    <link href="http://cdn.kendostatic.com/2014.1.318/styles/kendo.common.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://cdn.kendostatic.com/2014.1.318/styles/kendo.silver.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://cdn.kendostatic.com/2014.1.318/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2014.1.318/js/kendo.all.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+    <script src="lib/angular.js"></script>
+    <script src="lib/angular-route.js"></script>
+    <script src="lib/angular-kendo.js"></script>
+
+    <style type="text/css">
+      body {
+        padding: 0; margin: 0;
+      }
+      header {
+        position: fixed;
+        top: 0px; left: 0px; width: 100%; z-index: 100;
+      }
+      footer {
+        position: fixed;
+        bottom: 0px; left: 0px; width: 100%; z-index: 100;
+      }
+    </style>
+  </head>
+  <body ng-app="gsVolunteerEvents" ng-controller="masterController" class="km-ios7">
+		<header>
+			<div kendo-mobile-nav-bar>
+				<span data-role="view-title">{{ pool.viewTitle }}</span>
+				<a class="about-button" data-align="right" href="#about" kendo-mobile-button>About</a>
+			</div>
+		</header>
+
+    <div id="mainView" ng-view></div>
+
+    <footer>
+      <div kendo-mobile-tab-strip="tabStrip">
+        <a href="#" data-icon="home">Add</a>
+        <a href="#list" data-icon="organize">Events</a>
+      </div>
+    </footer>
+    <!-- templates -->
+
+    <script type="text/x-kendo-template" id="listTemplate">
+      <a kendo-mobile-button
+         k-on-click="removeEvent(dataItem)">&nbsp;&#x2716;&nbsp;</a>
+
+      <a class="details-link"
+         data-role="listview-link"
+         href="#add/{{ dataItem.uid }}">
+				<table style="width: 80%; padding: 3px">
+					<tr>
+						<td colspan="2">{{ dataItem.name }}</td>
+					</tr>
+					<tr>
+						<td style="width: 75%; padding: 0px;font-weight: bold">{{ dataItem.date | date:"MM/dd/yyyy" }}</td>
+						<td style="width: 25%; padding: 5px;text-align: right;font-weight: bold">{{ dataItem.hours }}</td>
+					</tr>
+				</table>
+      </a>
+    </script>
+
+    <script id="cartItemTemplate" type="text/x-kendo-template">
+      <a class="red-button"
+         kendo-mobile-button
+         k-on-click="removeItem(dataItem)"
+         >&nbsp;&#x2716;&nbsp;</a>
+
+      <a class="details-link"
+         data-role="listview-link"
+         href="#details/{{ dataItem.id }}">
+        <img ng-src="images/75/{{ dataItem.image }}" />
+        <h2>{{ dataItem.name }} (x {{ dataItem.ordered }})</h2>
+        <span class="price">total: {{ dataItem.price * dataItem.ordered | currency }}</span>
+      </a>
+    </script>
+
+		<script src="app/app.js"></script>
+		<script src="app/services/repositoryMemory.js"></script>
+		<script src="app/services/volunteerService.js"></script>
+		<script src="app/controllers/masterController.js"></script>
+		<script src="app/controllers/addController.js"></script>
+		<script src="app/controllers/listController.js"></script>
+
+	</body>
+</html>

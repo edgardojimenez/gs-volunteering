@@ -1,0 +1,16 @@
+<div id="add" style="padding: 20px;" >
+	<span id="notification"></span>
+	<br />
+	<input kendo-date-picker id="eventDate" style="height: 38px; width: 100%" k-ng-model="event.date" />
+	<br />
+	<br />
+	<input kendo-auto-complete Id="volunteerEvent" ng-model="event.name" style="height: 38px; width: 100%" k-data-source="volunteerEvents" />
+	<br />
+	<br />
+	<div kendo-slider  k-min="0" k-max="24" ng-model="event.hours" k-show-buttons="false" k-large-step="24" k-small-step=".5" k-tooltip="{ enabled: true }"
+			 style="width: 100%;"></div>
+	<br />
+	<br />
+	<br />
+	<button kendo-mobile-button id="save" style="height: 42px; width: 100%" k-on-click="addEvent(event)" >Save Event</button>
+</div>
