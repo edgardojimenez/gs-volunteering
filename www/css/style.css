@@ -25,6 +25,11 @@ a.list-group-item.active, a.list-group-item.active:focus, a.list-group-item.acti
     border-color: #029c4f;
 }
 
+.logo {
+    width: 75%;
+    height: 75%;
+}
+
 h1 {
     padding: 0;
     margin: 10px 0;
