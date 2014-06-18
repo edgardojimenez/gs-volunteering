@@ -2,64 +2,78 @@
  * Created by ejimenez on 5/26/2014.
  */
 
-app.controller('addController', ['$scope', 'volunteerService', "$route", '$location', function ($scope, service, $route, $location) {
-    $scope.route = $route;
-    $scope.pool.viewTitle = "GS Volunteer Event";
-    $scope.volunteerEvents = service.getVolunteerEventNames();
+app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$route", function ($scope, $rootScope, service, $route) {
     var currentEvent = null;
 
-    if ($scope.route.current.params.id) {
-        var uid = $scope.route.current.params.id;
-        currentEvent = service.getVolunteerEvent(uid);
-        $scope.event = service.getNewVolunteerEvent({ date: currentEvent.get("date"), name: currentEvent.get("name"), hours: currentEvent.get("hours") });
+    $rootScope.$on("$routeChangeStart", function(){
+        $rootScope.loading = true;
+    });
+
+    $rootScope.$on("$routeChangeSuccess", function(){
+        $rootScope.loading = false;
+    });
+
+    if ($route.current.params.id) {
+        $scope.state = "Update";
+        var id = parseInt($route.current.params.id);
+        service.getVolunteerEvent(id).then(function (data) {
+
+            currentEvent = data;
+            $scope.event = service.getNewVolunteerEvent({
+                date: currentEvent.date,
+                name: currentEvent.name,
+                hours: currentEvent.hours
+            });
+        });
+
     } else {
+        $scope.state = "Add";
         $scope.event = service.getNewVolunteerEvent();
     }
-
-    $scope.messageNotify = $("#notification").kendoNotification({
-        position: {
-            top: 20,
-            right: 20
-        }
-    }).data("kendoNotification");
 
     $scope.addEvent = function (event) {
         try {
             if (!Validate(event)) {
-                $scope.messageNotify.show("An event is required!", "error");
+                //$scope.messageNotify.show("An event is required!", "error");
                 return;
             }
 
             if (!currentEvent) {
-                service.addVolunteerEvent(event);
-                $scope.messageNotify.show("Event was added!", "success");
-                $scope.event = service.getNewVolunteerEvent();
+                service.addVolunteerEvent(event).then(function () {
+                    //$scope.messageNotify.show("Event was added!", "success");
+                    $scope.event = service.getNewVolunteerEvent();
+                });
             } else {
-                currentEvent.set("date", $scope.event.get("date"));
-                currentEvent.set("name", $scope.event.get("name"));
-                currentEvent.set("hours", $scope.event.get("hours"));
-                $scope.messageNotify.show("Event was updated!", "success");
+                currentEvent.date = $scope.event.date;
+                currentEvent.name = $scope.event.name;
+                currentEvent.hours = $scope.event.hours;
+                //$scope.messageNotify.show("Event was updated!", "success");
             }
 
-            $scope.volunteerEvents = service.getVolunteerEventNames();
+            //$scope.volunteerEvents = service.getVolunteerEventNames();
         } catch (ex) {
-            $scope.messageNotify.show("ERROR - " + ex.message, "error");
+            //$scope.messageNotify.show("ERROR - " + ex.message, "error");
             //Log
         }
     };
 
-    $scope.removeEvent = function (event) {
-        service.removeVolunteerEvents(event);
+    $scope.clearEvent = function () {
+        currentEvent = null;
+        $scope.event = service.getNewVolunteerEvent();
     };
-
-
+//
+//    $scope.removeEvent = function (event) {
+//        service.removeVolunteerEvents(event);
+//    };
+//
+//
     function Validate(event) {
         return event.name;
     }
-
-    function onShow(e) {
-        console.log(e.view.params);
-    }
+//
+//    function onShow(e) {
+//        console.log(e.view.params);
+//    }
 
     //$("#autocomplete").value(event.name);
 //    $scope.groceries = [];

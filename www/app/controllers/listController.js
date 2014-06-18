@@ -2,16 +2,24 @@
  * Created by ejimenez on 5/26/2014.
  */
 
-app.controller('listController', ['$scope', 'volunteerService', '$location', function ($scope, service, $location) {
-    $scope.pool.viewTitle = "GS Volunteer Events";
-    $scope.events = service.getVolunteerEvents();
-    $scope.removeEvent = function (event) {
+app.controller('listController', ['$scope','$rootScope', 'volunteerService', '$location', function ($scope, $rootScope, service, $location) {
+    $rootScope.$on("$routeChangeStart", function(){
+        $rootScope.loading = true;
+    });
+
+    $rootScope.$on("$routeChangeSuccess", function(){
+        $rootScope.loading = false;
+    });
+
+    service.getVolunteerEvents().then(function (data) {
+        $scope.events = data;
+    });
+
+    $scope.removeEvent = function (event, evt) {
+        evt.preventDefault();
         service.removeVolunteerEvents(event);
     };
-    $scope.updateEvent = function (event) {
-        console.log(event);
-        $location.path("add/" + event.udi); // path not hash
-    };
+
 //    $scope.groceries = [];
 //    $scope.$emit('message', '');
 //

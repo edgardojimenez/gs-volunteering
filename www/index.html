@@ -1,94 +1,79 @@
 <!DOCTYPE html>
-<html class="">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+<!--
+  ** NOTE **
 
-    <link href="http://cdn.kendostatic.com/2014.1.318/styles/kendo.common.min.css" rel="stylesheet" type="text/css" />
-    <link href="http://cdn.kendostatic.com/2014.1.318/styles/kendo.silver.min.css" rel="stylesheet" type="text/css" />
-    <link href="http://cdn.kendostatic.com/2014.1.318/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+  Run `grunt connect` then
+  navigate to http://localhost:3000/demo
+  to see this page in browser
 
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="http://cdn.kendostatic.com/2014.1.318/js/kendo.all.min.js"></script>
+  -->
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Girl Scouts Volunteering</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="yes" />
+	<link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+	<link rel="stylesheet" href="lib/css/mobile-angular-ui-base.min.css" />
+	<link rel="stylesheet" href="lib/css/mobile-angular-ui-desktop.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-touch.min.js"></script>
+	<script src="lib/js/mobile-angular-ui.min.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/controllers/masterController.js"></script>
+	<script src="app/controllers/addController.js"></script>
+	<script src="app/controllers/listController.js"></script>
+	<script src="app/services/volunteerService.js"></script>
+	<script src="app/services/utils.js"></script>
+	<script src="app/services/repositoryMemory.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
 
-    <script src="lib/angular.js"></script>
-    <script src="lib/angular-route.js"></script>
-    <script src="lib/angular-kendo.js"></script>
+</head>
+<body ng-app="GSVolunteeringEvents" ng-controller="masterController">
 
-    <style type="text/css">
-      body {
-        padding: 0; margin: 0;
-      }
-      header {
-        position: fixed;
-        top: 0px; left: 0px; width: 100%; z-index: 100;
-      }
-      footer {
-        position: fixed;
-        bottom: 0px; left: 0px; width: 100%; z-index: 100;
-      }
-    </style>
-  </head>
-  <body ng-app="gsVolunteerEvents" ng-controller="masterController" class="km-ios7">
-		<header>
-			<div kendo-mobile-nav-bar>
-				<span data-role="view-title">{{ pool.viewTitle }}</span>
-				<a class="about-button" data-align="right" href="#about" kendo-mobile-button>About</a>
+<!-- Sidebars -->
+<div ng-include="'app/views/sidebar.html'" class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in" id="mainSidebar"></div>
+
+<div class="app">
+
+	<!-- Navbars -->
+
+	<div class="navbar navbar-app navbar-absolute-top">
+		<div class="navbar-brand navbar-brand-center" yield-to="title">
+			<span>Volunteering</span>
+		</div>
+
+		<div class="btn-group pull-left">
+			<div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
+				<i class="fa fa-bars"></i>
 			</div>
-		</header>
+		</div>
 
-    <div id="mainView" ng-view></div>
+		<div class="btn-group pull-right">
+			<a href="/" class="btn btn-navbar"><img src="css/images/gs4.png" width="75%" height="75%"></a>
+		</div>
+	</div>
 
-    <footer>
-      <div kendo-mobile-tab-strip="tabStrip">
-        <a href="#" data-icon="home">Add</a>
-        <a href="#list" data-icon="organize">Events</a>
-      </div>
-    </footer>
-    <!-- templates -->
+	<div class="navbar navbar-app navbar-absolute-bottom">
+		<div class="btn-group justified">
+			<a href="#/" class="btn btn-navbar"><i class="fa fa-home fa-navbar"></i> Add</a>
+			<a href="#/events" class="btn btn-navbar"><i class="fa fa-list fa-navbar"></i> Events</a>
+		</div>
+	</div>
 
-    <script type="text/x-kendo-template" id="listTemplate">
-      <a kendo-mobile-button
-         k-on-click="removeEvent(dataItem)">&nbsp;&#x2716;&nbsp;</a>
+	<!-- App Body -->
+	<div class="app-body" ng-class="{loading: loading}">
+		<div ng-show="loading" class="app-content-loading">
+			<i class="fa fa-spinner fa-spin loading-spinner"></i>
+		</div>
 
-      <a class="details-link"
-         data-role="listview-link"
-         href="#add/{{ dataItem.uid }}">
-				<table style="width: 80%; padding: 3px">
-					<tr>
-						<td colspan="2">{{ dataItem.name }}</td>
-					</tr>
-					<tr>
-						<td style="width: 75%; padding: 0px;font-weight: bold">{{ dataItem.date | date:"MM/dd/yyyy" }}</td>
-						<td style="width: 25%; padding: 5px;text-align: right;font-weight: bold">{{ dataItem.hours }}</td>
-					</tr>
-				</table>
-      </a>
-    </script>
+		<ng-view class="app-content" ng-hide="loading"></ng-view>
+	</div>
 
-    <script id="cartItemTemplate" type="text/x-kendo-template">
-      <a class="red-button"
-         kendo-mobile-button
-         k-on-click="removeItem(dataItem)"
-         >&nbsp;&#x2716;&nbsp;</a>
-
-      <a class="details-link"
-         data-role="listview-link"
-         href="#details/{{ dataItem.id }}">
-        <img ng-src="images/75/{{ dataItem.image }}" />
-        <h2>{{ dataItem.name }} (x {{ dataItem.ordered }})</h2>
-        <span class="price">total: {{ dataItem.price * dataItem.ordered | currency }}</span>
-      </a>
-    </script>
-
-		<script src="app/app.js"></script>
-		<script src="app/services/repositoryMemory.js"></script>
-		<script src="app/services/volunteerService.js"></script>
-		<script src="app/controllers/masterController.js"></script>
-		<script src="app/controllers/addController.js"></script>
-		<script src="app/controllers/listController.js"></script>
-
-	</body>
+</div>
+</body>
 </html>

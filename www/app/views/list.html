@@ -1,5 +1,28 @@
-<div kendo-mobile-list-view
-		 class="item-list" id="list"
-		 k-data-source="events"
-		 k-type="'flat'"
-		 k-template="template('listTemplate')"></div>
+<div content-for="title">
+	<span>Events</span>
+</div>
+
+<input type="search" class="form-control app-search" placeholder="Search.." />
+
+<div class="scrollable">
+	<div class="scrollable-content">
+		<div class="list-group" >
+			<div ng-repeat="event in events">
+				<a href="#/add/{{ event.id }}" class="list-group-item">
+					<table style="width: 100%; padding: 3px">
+						<tr>
+							<td><h4 class="list-group-item-heading">{{ event.date | date:"MM/dd/yyyy" }}</h4></td>
+							<td style="padding: 5px;text-align: right;"><h4 class="list-group-item-heading">{{ event.hours }}</h4></td>
+							<td rowspan="2" style="width: 10%">
+								<button type="button" style="width: 40px; height: 40px;" class="close" ng-click="removeEvent(event, $event)" aria-hidden="true">&times;</button>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2"><p class="list-group-item-text">{{ event.name }}</p></td>
+						</tr>
+					</table>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

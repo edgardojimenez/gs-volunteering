@@ -23,7 +23,6 @@ app.factory('volunteerService', ['repoMemory', function(repo) {
         },
 
         addVolunteerEvent: function (volunteerEvent) {
-
             return repo.addEvent(volunteerEvent);
         },
 

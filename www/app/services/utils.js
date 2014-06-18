@@ -16,6 +16,16 @@ app.factory('utils', function () {
             }
 
             return words.join(' ');
+        },
+
+        sortByDate: function (array) {
+            return array.sort(function(a, b){
+                var c = new Date(a.date);
+                var d = new Date(b.date);
+                if (c > d) return -1;
+                if (c < d) return 1;
+                return 0;
+            });
         }
     };
 });
