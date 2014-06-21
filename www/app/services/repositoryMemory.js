@@ -40,7 +40,7 @@ app.factory('repoMemory', ['$q', '$filter','utils', function($q, $filter, utils)
             if (options)
                 return { "id": options.id, "date": $filter("date")(options.date, 'yyyy-MM-dd'), "name": options.name, "hours": options.hours }
 
-            return { "id": 0, "date": $filter("date")(Date.now(), 'yyyy-MM-dd'), "name": null, "hours": 2 };
+            return { "id": 0, "date": $filter("date")(Date.now(), 'yyyy-MM-dd'), "name": null, "hours": null };
         },
 
         getEvents: function () {

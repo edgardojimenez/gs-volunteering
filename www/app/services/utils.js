@@ -26,6 +26,10 @@ app.factory('utils', function () {
                 if (c < d) return 1;
                 return 0;
             });
+        },
+
+        test: function () {
+            alert("hello world");
         }
     };
 });

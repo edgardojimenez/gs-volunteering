@@ -19,17 +19,7 @@
 	<link rel="stylesheet" href="lib/css/mobile-angular-ui-base.min.css" />
 	<link rel="stylesheet" href="lib/css/mobile-angular-ui-desktop.min.css" />
 	<link rel="stylesheet" href="css/style.css" />
-	<script src="lib/js/angular.min.js"></script>
-	<script src="lib/js/angular-route.min.js"></script>
-	<script src="lib/js/angular-touch.min.js"></script>
-	<script src="lib/js/mobile-angular-ui.min.js"></script>
-	<script src="app/app.js"></script>
-	<script src="app/controllers/masterController.js"></script>
-	<script src="app/controllers/addController.js"></script>
-	<script src="app/controllers/listController.js"></script>
-	<script src="app/services/volunteerService.js"></script>
-	<script src="app/services/utils.js"></script>
-	<script src="app/services/repositoryMemory.js"></script>
+
 
 
 </head>
@@ -75,5 +65,24 @@
 	</div>
 
 </div>
+<script src="lib/js/angular.min.js"></script>
+<script src="lib/js/angular-route.min.js"></script>
+<script src="lib/js/angular-touch.min.js"></script>
+<script src="lib/js/mobile-angular-ui.min.js"></script>
+<script src="app/services/cordova.js"></script>
+<script src="app/app.js"></script>
+<script src="app/controllers/masterController.js"></script>
+<script src="app/controllers/addController.js"></script>
+<script src="app/controllers/listController.js"></script>
+<script src="app/services/cordovaService.js"></script>
+<script src="app/services/volunteerService.js"></script>
+<script src="app/services/utils.js"></script>
+<script src="app/services/repositoryMemory.js"></script>
+<script>
+	document.addEventListener("deviceready", function() {
+		cordova.splashHide();
+	}, false);
+
+</script>
 </body>
 </html>

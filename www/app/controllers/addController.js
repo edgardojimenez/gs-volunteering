@@ -2,7 +2,7 @@
  * Created by ejimenez on 5/26/2014.
  */
 
-app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$route", function ($scope, $rootScope, service, $route) {
+app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$route", 'cordovaService', function ($scope, $rootScope, service, $route, cordovaService) {
     var currentEvent = null;
 
     $rootScope.$on("$routeChangeStart", function(){
@@ -33,27 +33,26 @@ app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$r
 
     $scope.addEvent = function (event) {
         try {
-            if (!Validate(event)) {
-                //$scope.messageNotify.show("An event is required!", "error");
+            var errors = Validate(event);
+            if (errors.length > 0) {
+                cordovaService.alert(errors.join('\r\n'), 'Validation');
                 return;
             }
 
             if (!currentEvent) {
                 service.addVolunteerEvent(event).then(function () {
-                    //$scope.messageNotify.show("Event was added!", "success");
+                    cordovaService.notify("Event was added!", 'short', 'bottom');
                     $scope.event = service.getNewVolunteerEvent();
                 });
             } else {
                 currentEvent.date = $scope.event.date;
                 currentEvent.name = $scope.event.name;
                 currentEvent.hours = $scope.event.hours;
-                //$scope.messageNotify.show("Event was updated!", "success");
+                cordovaService.notify("Event was updated!", 'short', 'bottom');
             }
 
-            //$scope.volunteerEvents = service.getVolunteerEventNames();
         } catch (ex) {
-            //$scope.messageNotify.show("ERROR - " + ex.message, "error");
-            //Log
+            cordovaService.notify("ERROR - " + ex.message, 'short', 'bottom');
         }
     };
 
@@ -61,40 +60,22 @@ app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$r
         currentEvent = null;
         $scope.event = service.getNewVolunteerEvent();
     };
-//
-//    $scope.removeEvent = function (event) {
-//        service.removeVolunteerEvents(event);
-//    };
-//
-//
-    function Validate(event) {
-        return event.name;
-    }
-//
-//    function onShow(e) {
-//        console.log(e.view.params);
-//    }
 
-    //$("#autocomplete").value(event.name);
-//    $scope.groceries = [];
-//    $scope.$emit('message', '');
-//
-//    service.getGroceries().success(function (data) {
-//        if (data) {
-//            for (var i = 0; i < data.length; i++)
-//                $scope.groceries.push({ product: data[i].productName, id: data[i].productId});
-//
-//        }
-//    }).error(function(err) {
-//        $scope.$emit('message', 'error: ' + err.message);
-//    });
-//
-//    $scope.removeGrocery = function(id, index) {
-//        service.removeGrocery(id).success(function (data) {
-//            $scope.groceries.splice(index,1);
-//        }).error(function(err) {
-//            $scope.$emit('message', 'error: ' + err.message);
-//        });
-//    };
+    function Validate(event) {
+        var error = [];
+        if (!event.name)
+            error.push("Event name is required!");
+
+        if (event.hours === null)
+            error.push("Event hours is required!");
+
+        if (event.hours !== null && isNaN(event.hours))
+            error.push("Event hours must be a number");
+
+        if (event.hours !== null && !isNaN(event.hours) && !(event.hours > 0 && event.hours < 25))
+            error.push("Event hours must be a number from 1 - 24!");
+
+        return error;
+    }
 
 }]);
