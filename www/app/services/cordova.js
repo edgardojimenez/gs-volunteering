@@ -3,9 +3,11 @@
  */
 var cordova = (function (win) {
     return {
-        alert: function (message, title, callback) {
+        alert: function (message, title) {
+            console.log("in alert");
             if (win.navigator.notification) {
-                win.navigator.notification.alert(message, callback, title, "Ok");
+                console.log("in win.navigator.notification");
+                win.navigator.notification.alert(message, function(){}, title, "OK");
             } else {
                 alert(message);
             }
@@ -20,18 +22,27 @@ var cordova = (function (win) {
         },
 
         notify: function (message, duration, position) {
-            if (win.plugins && win.plugins.toast)
-                win.plugins.toast.show(message, duration, position);
+            console.log("in notify");
+            if (win.plugins && win.plugins.toast) {
+                console.log("in win.plugins && win.plugins.toast");
+                win.plugins.toast.show(message, duration, position, function () {}, function () {});
+            }
         },
 
         splashHide: function () {
-            if (win.navigator.splashscreen)
+            console.log("in splashHide");
+            if (win.navigator.splashscreen) {
+                console.log("in win.navigator.splashscreen");
                 win.navigator.splashscreen.hide();
+            }
         },
 
         vibrate: function (time) {
-            if (win.navigator.notification)
+            console.log("in vibrate");
+            if (win.navigator.notification) {
+                console.log("in win.navigator.notification");
                 win.navigator.notification.vibrate(time);
+            }
         }
     };
 })(window);

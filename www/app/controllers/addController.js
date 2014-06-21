@@ -33,6 +33,7 @@ app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$r
 
     $scope.addEvent = function (event) {
         try {
+            window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
             var errors = Validate(event);
             if (errors.length > 0) {
                 cordovaService.alert(errors.join('\r\n'), 'Validation');

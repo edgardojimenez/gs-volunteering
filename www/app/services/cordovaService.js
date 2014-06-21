@@ -18,7 +18,7 @@ app.factory('cordovaService', function () {
         },
 
         notify: function (message, duration, position) {
-            cordova.vibrate(1000);
+            //cordova.vibrate(1000);
             cordova.notify(message, duration, position);
         },
 
