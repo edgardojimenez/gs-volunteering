@@ -5,7 +5,7 @@ app.factory('cordovaService', function () {
 
     return {
         alert: function (message, title) {
-            phone.vibrate(1000);
+            phone.vibrate(250);
             phone.alert(message, title);
         },
 
@@ -13,12 +13,12 @@ app.factory('cordovaService', function () {
 
         },
 
-        confirm: function (message) {
-
+        confirm: function (message, title, onConfirm) {
+            phone.confirm(message, title, onConfirm);
         },
 
         notify: function (message, duration, position) {
-            //phone.vibrate(1000);
+            phone.vibrate(250);
             phone.notify(message, duration, position);
         },
 

@@ -42,18 +42,18 @@ app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$r
 
             if (!currentEvent) {
                 service.addVolunteerEvent(event).then(function () {
-                    cordovaService.notify("Event was added!", 'short', 'bottom');
+                    cordovaService.notify("Event was added!", 'short', 'top');
                     $scope.event = service.getNewVolunteerEvent();
                 });
             } else {
                 currentEvent.date = $scope.event.date;
                 currentEvent.name = $scope.event.name;
                 currentEvent.hours = $scope.event.hours;
-                cordovaService.notify("Event was updated!", 'short', 'bottom');
+                cordovaService.notify("Event was updated!", 'short', 'top');
             }
 
         } catch (ex) {
-            cordovaService.notify("ERROR - " + ex.message, 'short', 'bottom');
+            cordovaService.notify("ERROR - " + ex.message, 'long', 'center');
         }
     };
 
