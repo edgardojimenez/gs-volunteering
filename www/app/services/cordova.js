@@ -1,7 +1,7 @@
 /**
  * Created by ejimenez on 6/18/2014.
  */
-var cordova = (function (win) {
+var phone = (function (win) {
     return {
         alert: function (message, title) {
             console.log("in alert");

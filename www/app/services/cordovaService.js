@@ -5,8 +5,8 @@ app.factory('cordovaService', function () {
 
     return {
         alert: function (message, title) {
-            cordova.vibrate(1000);
-            cordova.alert(message, title);
+            phone.vibrate(1000);
+            phone.alert(message, title);
         },
 
         prompt: function (message) {
@@ -18,16 +18,16 @@ app.factory('cordovaService', function () {
         },
 
         notify: function (message, duration, position) {
-            //cordova.vibrate(1000);
-            cordova.notify(message, duration, position);
+            //phone.vibrate(1000);
+            phone.notify(message, duration, position);
         },
 
         splashHide: function () {
-            cordova.splashHide();
+            phone.splashHide();
         },
 
         vibrate: function (time) {
-            cordova.vibrate(time);
+            phone.vibrate(time);
         }
     };
 });
