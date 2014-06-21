@@ -17,8 +17,9 @@ app.controller('listController', ['$scope','$rootScope', 'volunteerService', '$l
 
     $scope.removeEvent = function (event, evt) {
         evt.preventDefault();
-        cordovaService.confirm("Do you want to remove event?", "Remove Event", function() {
-            service.removeVolunteerEvents(event);
+        cordovaService.confirm("Do you want to remove event?", "Remove Event", function(button) {
+            if (button === 1)
+                service.removeVolunteerEvents(event);
         })
     };
 

@@ -2,10 +2,10 @@
  * Created by ejimenez on 6/18/2014.
  */
 app.factory('cordovaService', function () {
-
+    var vibrationMiliseconds = 180;
     return {
         alert: function (message, title) {
-            phone.vibrate(250);
+            phone.vibrate(vibrationMiliseconds);
             phone.alert(message, title);
         },
 
@@ -18,7 +18,7 @@ app.factory('cordovaService', function () {
         },
 
         notify: function (message, duration, position) {
-            phone.vibrate(250);
+            phone.vibrate(vibrationMiliseconds);
             phone.notify(message, duration, position);
         },
 

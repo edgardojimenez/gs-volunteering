@@ -18,12 +18,18 @@ var phone = (function (win) {
         confirm: function (message, title, onConfirm) {
             if (win.navigator.notification) {
                 win.navigator.notification.confirm(message, onConfirm, title);
+            } else {
+                if (confirm(message)) {
+                    onConfirm(1);
+                }
             }
         },
 
         notify: function (message, duration, position) {
             if (win.plugins && win.plugins.toast) {
                 win.plugins.toast.show(message, duration, position, function () {}, function () {});
+            } else {
+                alert(message);
             }
         },
 
