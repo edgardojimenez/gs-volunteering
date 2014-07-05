@@ -1,7 +1,7 @@
 /**
  * Created by ejimenez on 6/18/2014.
  */
-app.factory('cordovaService', function () {
+app.factory('cordovaService', function (phone) {
     var vibrationMiliseconds = 180;
     return {
         alert: function (message, title) {

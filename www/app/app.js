@@ -51,4 +51,6 @@ app.config(function($routeProvider) {
     }).otherwise({ redirectTo: '/' });
 });
 
+app.value('phone', cordovaInterface);
+
 

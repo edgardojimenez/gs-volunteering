@@ -2,7 +2,7 @@
  * Created by ejimenez on 5/26/2014.
  */
 
-app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$route", 'cordovaService', function ($scope, $rootScope, service, $route, cordovaService) {
+app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$route", 'cordovaService', '$document', function ($scope, $rootScope, service, $route, cordovaService, $document) {
     var currentEvent = null;
 
     $rootScope.$on("$routeChangeStart", function(){
@@ -32,8 +32,8 @@ app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$r
     }
 
     $scope.addEvent = function (event) {
+        mytestscroll();
         try {
-            //window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
             var errors = Validate(event);
             if (errors.length > 0) {
                 cordovaService.alert(errors.join('\r\n'), 'Validation');
@@ -61,6 +61,12 @@ app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$r
         currentEvent = null;
         $scope.event = service.getNewVolunteerEvent();
     };
+
+    function mytestscroll() {
+        var frame = document.getElementById("scroll-pane");
+        var scrollTo = document.getElementById("hours");
+        frame.scrollTop = scrollTo.offsetTop;
+    }
 
     function Validate(event) {
         var error = [];
