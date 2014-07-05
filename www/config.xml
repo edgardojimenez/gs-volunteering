@@ -58,6 +58,7 @@
     <gap:plugin name="org.apache.cordova.dialogs" version="0.2.6" />
     <gap:plugin name="org.apache.cordova.splashscreen" version="0.2.7" />
     <gap:plugin name="org.apache.cordova.vibration" version="0.3.7" />
+    <gap:plugin name="org.apache.cordova.network-information" version="0.2.7" />
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png" />
