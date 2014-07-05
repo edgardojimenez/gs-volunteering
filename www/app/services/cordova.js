@@ -65,7 +65,7 @@ var cordovaInterface = (function (win) {
             me.notify("No Internet Connection", "short", "bottom");
         },
 
-        backButton: function (time) {
+        onBackButton: function (time) {
             var me = this;
             me.notify("backButton", "short", "bottom");
         },
@@ -75,7 +75,7 @@ var cordovaInterface = (function (win) {
                 return win.navigator.connection.type !== Connection.NONE;
             }
 
-            throw new Error("Can not find connections");
+            return false;
         },
 
         connectionType: function () {
@@ -85,19 +85,19 @@ var cordovaInterface = (function (win) {
                 networkState = win.navigator.connection.type;
 
                 var states = {};
-                states[Connection.UNKNOWN] = 'Unknown connection';
-                states[Connection.ETHERNET] = 'Ethernet connection';
-                states[Connection.WIFI] = 'WiFi connection';
-                states[Connection.CELL_2G] = 'Cell 2G connection';
-                states[Connection.CELL_3G] = 'Cell 3G connection';
-                states[Connection.CELL_4G] = 'Cell 4G connection';
-                states[Connection.CELL] = 'Cell generic connection';
-                states[Connection.NONE] = 'No network connection';
+                states[Connection.UNKNOWN] = 'Unknown';
+                states[Connection.ETHERNET] = 'Ethernet';
+                states[Connection.WIFI] = 'WiFi';
+                states[Connection.CELL_2G] = '2G';
+                states[Connection.CELL_3G] = '3G';
+                states[Connection.CELL_4G] = '4G';
+                states[Connection.CELL] = 'Cell';
+                states[Connection.NONE] = 'None';
 
                 return states[networkState];
             }
 
-            return null;
+            return "null";
         }
     };
 })(window);

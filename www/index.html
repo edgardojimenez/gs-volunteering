@@ -80,13 +80,11 @@
 <script type="text/javascript">
 	document.addEventListener("deviceready", function() {
 		phone.splashHide();
-		document.addEventListener("pause", yourCallbackFunction, false);
-		document.addEventListener("resume", yourCallbackFunction, false);
-		document.addEventListener("online", yourCallbackFunction, false);
-		document.addEventListener("offline", yourCallbackFunction, false);
-		document.addEventListener("backbutton", yourCallbackFunction, false);
-		document.addEventListener("menubutton", yourCallbackFunction, false);
-		document.addEventListener("searchbutton", yourCallbackFunction, false);
+		document.addEventListener("pause", phone.onPause, false);
+		document.addEventListener("resume", Phone.onResume, false);
+		document.addEventListener("online", phone.onOnline, false);
+		document.addEventListener("offline", phone.onOffline, false);
+		document.addEventListener("backbutton", phone.onBackButton, false);
 	}, false);
 
 </script>

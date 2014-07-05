@@ -28,6 +28,14 @@ app.factory('cordovaService', function (phone) {
 
         vibrate: function (time) {
             phone.vibrate(time);
+        },
+
+        isConnected: function () {
+            return phone.isConnected();
+        },
+
+        connectionType: function () {
+            return phone.connectionType();
         }
     };
 });

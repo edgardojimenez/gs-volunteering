@@ -60,6 +60,7 @@ app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$r
     $scope.clearEvent = function () {
         currentEvent = null;
         $scope.event = service.getNewVolunteerEvent();
+        cordovaService.notify(cordovaService.connectionType(), "short", "top")
     };
 
     function mytestscroll() {
