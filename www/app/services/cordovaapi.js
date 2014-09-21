@@ -27,8 +27,7 @@
             };
 
         function init () {
-            if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-            //if (true) {
+            if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|MSIE)/)) {
                 console.log("Mobile");
 
                 $document.addEventListener("deviceready", onDeviceReady, false);
@@ -36,7 +35,7 @@
                 $document.addEventListener("resume", onResume, false);
                 $document.addEventListener("online", onOnline, false);
                 $document.addEventListener("offline", onOffline, false);
-                //$document.addEventListener("backbutton", onBackButton, false);
+                $document.addEventListener("backbutton", onBackButton, false);
             } else {
                 console.log("browser");
                 ready();
@@ -53,6 +52,10 @@
 
                 bootstrap();
                 splashHide();
+            }).fail(function(e){
+                bootstrap();
+                splashHide();
+                alert(e.code + ' - ' + e.error, 'Error');
             });
         }
 
@@ -65,6 +68,9 @@
                     dataSource.data = data;
 
                 bootstrap();
+            }).fail(function(e){
+                bootstrap();
+                alert(e.code + ' - ' + e.error, 'Error');
             });
         }
 
@@ -72,12 +78,6 @@
             angular.bootstrap($document, ['GSVolunteeringEvents']);
         }
 
-        function loadData() {
-            storage.getData().then(function (data) {
-                if (data)
-                    dataSource.data = JSON.parse(data);
-            });
-        }
 
         function alert(message, title) {
             if ($window.navigator.notification) {

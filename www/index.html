@@ -25,7 +25,7 @@
 
 <!-- Sidebars -->
 <div ng-include="'app/views/mainSidebar.html'" class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in" id="mainSidebar"></div>
-<div ng-include="'app/views/optionsSidebar.html'" class="sidebar sidebar-right" toggleable parent-active-class="sidebar-right-in" id="optionsSidebar"></div>
+<div ng-include="'app/views/statsSidebar.html'" class="sidebar sidebar-right" toggleable parent-active-class="sidebar-right-in" id="statsSidebar"></div>
 
 <div class="app">
 
@@ -33,7 +33,6 @@
 
 	<div class="navbar navbar-app navbar-absolute-top">
 		<div class="navbar-brand navbar-brand-center" yield-to="title">
-            <span><img class="logo" src="css/images/gs4.png"  />&nbsp;volunteering</span>
 		</div>
 
 		<div class="btn-group pull-left">
@@ -42,13 +41,10 @@
 			</div>
 		</div>
         <div class="btn-group pull-right" yield-to="navbarAction">
-            <div ng-click="toggle('optionsSidebar'); vm.updateStats()" class="btn btn-navbar">
-                <i class="fa fa-cogs"></i>
+            <div ng-click="toggle('statsSidebar'); vm.updateStats()" class="btn btn-navbar">
+                <i class="fa fa-bar-chart-o"></i>
             </div>
         </div>
-		<!--<div class="btn-group pull-right">-->
-			<!--<a href="/" class="btn btn-navbar"><img src="css/images/gs4.png"></a>-->
-		<!--</div>-->
 	</div>
 
 	<div class="navbar navbar-app navbar-absolute-bottom">
@@ -87,6 +83,8 @@
 <script type="text/javascript" src="app/controllers/addController.js"></script>
 <script type="text/javascript" src="app/controllers/listController.js"></script>
 <script type="text/javascript" src="app/controllers/statsController.js"></script>
+<script type="text/javascript" src="app/controllers/SettingsController.js"></script>
+<script type="text/javascript" src="app/controllers/AboutController.js"></script>
 <script type="text/javascript">
 (function () {
     angular.injector(['GSVolunteeringEvents']).get('cordovaApi').init();

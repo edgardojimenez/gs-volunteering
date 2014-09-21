@@ -34,32 +34,16 @@
                     templateUrl: 'app/views/list.html',
                     controller: 'ListController',
                     controllerAs: 'vm'
+                }).when('/settings', {
+                    templateUrl: 'app/views/settings.html',
+                    controller: 'SettingsController',
+                    controllerAs: 'vm'
+                }).when('/about', {
+                    templateUrl: 'app/views/about.html',
+                    controller: 'AboutController',
+                    controllerAs: 'vm'
                 }).otherwise({ redirectTo: '/' });
         });
-
-//
-//    angular
-//        .module('GSVolunteeringEvents')
-//        .value('dataApi', dataInterface);
 })();
-
-//app.config(function($routeProvider) {
-//    $routeProvider
-//    .when('/', {
-//        controller: 'addController',
-//        templateUrl: 'app/views/add.html'
-//    }).when('/add', {
-//        controller: 'addController',
-//        templateUrl: 'app/views/add.html'
-//    }).when('/add/:id', {
-//        controller: 'addController',
-//        templateUrl: 'app/views/add.html'
-//    }).when('/events', {
-//        controller: 'listController',
-//        templateUrl: 'app/views/list.html'
-//    }).otherwise({ redirectTo: '/' });
-//});
-//
-//app.value('phone', cordovaInterface);
 
 
