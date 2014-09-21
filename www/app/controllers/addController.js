@@ -9,9 +9,9 @@
         .module('GSVolunteeringEvents')
         .controller('AddController', AddController);
 
-    AddController.$inject = ['$rootScope', 'volunteerService', "$route", 'cordovaService', 'messageBusService' ];
+    AddController.$inject = ['$rootScope', 'repository', "$route", 'cordovaService', 'messageBusService' ];
 
-    function AddController($rootScope, service, $route, cordovaService, messageBusService) {
+    function AddController($rootScope, repoService, $route, cordovaService, messageBusService) {
         /* jshint validthis: true */
         var vm = this,
             currentEvent = null;
@@ -35,25 +35,24 @@
             if ($route.current.params.id) {
                 vm.state = "Update";
                 var id = parseInt($route.current.params.id);
-                service.getVolunteerEvent(id).then(function (data) {
 
-                    currentEvent = data;
-                    vm.event = service.getNewVolunteerEvent({
-                        date: currentEvent.date,
-                        name: currentEvent.name,
-                        hours: currentEvent.hours
-                    });
+                currentEvent = repoService.getEvent(id);
+
+                vm.event = repoService.getNewEvent({
+                    date: currentEvent.date,
+                    name: currentEvent.name,
+                    hours: currentEvent.hours
                 });
 
             } else {
                 vm.state = "Add";
-                vm.event = service.getNewVolunteerEvent();
+                vm.event = repoService.getNewEvent();
             }
         }
 
         function clearEvent() {
             currentEvent = null;
-            vm.event = service.getNewVolunteerEvent();
+            vm.event = repoService.getNewEvent();
             //cordovaService.notify(cordovaService.connectionType(), "short", "top");
         }
 
@@ -67,11 +66,10 @@
                 }
 
                 if (!currentEvent) {
-                    service.addVolunteerEvent(event).then(function () {
-                        cordovaService.notify("Event was added!", 'short', 'top');
-                        vm.event = service.getNewVolunteerEvent();
-                        messageBusService.pub("stats.up");
-                    });
+                    repoService.addEvent(event)
+                    cordovaService.notify("Event was added!", 'short', 'top');
+                    vm.event = repoService.getNewEvent();
+                    messageBusService.pub("stats.up");
                 } else {
                     currentEvent.date = vm.event.date;
                     currentEvent.name = vm.event.name;

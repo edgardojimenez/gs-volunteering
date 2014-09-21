@@ -9,21 +9,16 @@
         .module('GSVolunteeringEvents')
         .controller('ListController', ListController);
 
-    ListController.$inject = ['$scope','$rootScope', 'volunteerService', 'cordovaService', 'messageBusService'];
+    ListController.$inject = ['$rootScope', 'repository', 'cordovaService', 'messageBusService'];
 
-    function ListController($scope, $rootScope, service, cordovaService, messageBusService) {
+    function ListController($rootScope, repoService, cordovaService, messageBusService) {
         /* jshint validthis: true */
         var vm = this;
 
         vm.events;
         vm.removeEvent = removeEvent;
         vm.search = search;
-        vm.clearSearch = clearSearch;
         vm.searchElement = "";
-        vm.stats = {
-            count: 0,
-            total: 0
-        };
 
         init();
 
@@ -36,45 +31,25 @@
                 $rootScope.loading = false;
             });
 
-            service.getVolunteerEvents().then(function (data) {
-                vm.events = data;
-                //messageBusService.pub("stats.up", true);
-            });
+            vm.events = repoService.getEvents();
         }
 
         function removeEvent(event, evt) {
             evt.preventDefault();
             cordovaService.confirm("Do you want to remove event?", "Remove Event", function(button) {
                 if (button === 1) {
-                    service.removeVolunteerEvents(event).then(function(event){
-//                        service.getVolunteerEvents().then(function (data) {
-//                            vm.events = data;
-//                        });
-                        messageBusService.pub("stats.up");
-                    });
+                    repoService.removeEvent(event);
+                    messageBusService.pub("stats.up");
                 }
             })
         }
 
         function search() {
-            if (vm.searchElement) {
-                var data = vm.events.filter(function(item){
-                    return (item.name.toLowerCase().indexOf(vm.searchElement.toLowerCase()) > -1);
-                });
-
-                vm.events = data;
-                messageBusService.pub("stats.data", data);
-            } else {
-                clearSearch();
-            }
+            vm.events = repoService.searchEvents(vm.searchElement);
+            messageBusService.pub("stats.up");
         }
 
-        function clearSearch() {
-            service.getVolunteerEvents().then(function (data) {
-                vm.events = data;
-                messageBusService.pub("stats.up");
-            });
-        }
+
     }
 
 })();

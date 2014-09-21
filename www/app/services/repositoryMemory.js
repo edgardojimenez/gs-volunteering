@@ -9,77 +9,79 @@
         .module('GSVolunteeringEvents')
         .factory('repository', repository);
 
-    repository.$inject = ['$q', '$filter','utils', 'dataSource'];
+    repository.$inject = ['$filter','utils', 'dataSource'];
 
-    function repository($q, $filter, utils, dataSource) {
+    function repository($filter, utils, dataSource) {
+        var currentData, service;
 
-        return {
+        init();
 
-            getEvent: function (id) {
-                var deferred = $q.defer(),
-                    result;
-                for (var i = 0; i < dataSource.data.length; i++) {
-                    if (dataSource.data[i].id === id) {
-                        result = dataSource.data[i];
-                        break;
-                    }
+        service = {
+            getEvent: getEvent,
+            getNewEvent: getNewEvent,
+            getEvents: getEvents,
+            addEvent: addEvent,
+            removeEvent: removeEvent,
+            searchEvents: searchEvents
+        };
+
+        function init() {
+            currentData = dataSource.data;
+        }
+
+        function getEvent(id) {
+            var len = currentData.length;
+            for (var i = 0; i < len; i++) {
+                if (currentData[i].id === id) {
+                    return currentData[i];
                 }
+            }
+        }
 
-                deferred.resolve(result);
+        function getNewEvent(options) {
+            if (options)
+                return { "id": options.id, "date": $filter("date")(options.date, 'yyyy-MM-dd'), "name": options.name, "hours": options.hours }
 
-                return deferred.promise;
-            },
+            return { "id": 0, "date": $filter("date")(Date.now(), 'yyyy-MM-dd'), "name": null, "hours": null };
+        }
 
-            getNewEvent: function (options) {
-                if (options)
-                    return { "id": options.id, "date": $filter("date")(options.date, 'yyyy-MM-dd'), "name": options.name, "hours": options.hours }
+        function getEvents() {
+            return utils.sortByDate(currentData);
+        }
 
-                return { "id": 0, "date": $filter("date")(Date.now(), 'yyyy-MM-dd'), "name": null, "hours": null };
-            },
+        function addEvent(event) {
+            currentData.push(event);
+        }
 
-            getEvents: function () {
-                var deferred = $q.defer();
+        function removeEvent(event) {
+            var index = -1, removeEvent;
+            currentData.forEach(function(item, i) {
+                if (item.id == event.id)
+                    index = i;
+            });
 
-                deferred.resolve(utils.sortByDate(dataSource.data));
+            if (index >= 0)
+                removeEvent = currentData.splice(index,1);
 
-                return deferred.promise;
-            },
+            return removeEvent;
+        }
 
-            //        getEventNames: function () {
-            //            var events = [];
-            //            dataSource.data().forEach(function (item) {
-            //                if (events.indexOf(item.name) == -1)
-            //                    events.push(item.name);
-            //            });
-            //
-            //            return events.sort();
-            //        },
-
-            addEvent: function (event) {
-                var deferred = $q.defer();
-                dataSource.data.push(event);
-                console.log(dataSource.data);
-                deferred.resolve(event);
-
-                return deferred.promise;
-            },
-
-            removeEvent: function (event) {
-                var deferred = $q.defer();
-                var index = -1, removeEvent;
-                dataSource.data.forEach(function(item, i) {
-                    if (item.id == event.id)
-                        index = i;
+        function searchEvents(filter) {
+            if (filter) {
+                currentData = dataSource.data;
+                var data = currentData.filter(function(item){
+                    return (item.name.toLowerCase().indexOf(filter.toLowerCase()) > -1);
                 });
 
-                if (index >= 0)
-                    removeEvent = dataSource.data.splice(index,1);
-
-                deferred.resolve(removeEvent);
-
-                return deferred.promise;
+                currentData = data;
+            } else {
+                currentData = dataSource.data;
             }
 
-        };
+            return currentData
+        }
+
+        return service;
     }
+
 })();

@@ -9,19 +9,13 @@
         .module('GSVolunteeringEvents')
         .factory('statsService', statsService);
 
-    statsService.$inject = ['messageBusService', 'volunteerService'];
+    statsService.$inject = ['messageBusService', 'repository'];
 
-    function statsService(messageBusService, volunteerService) {
+    function statsService(messageBusService, repoService) {
         var events = [], statsData, service, refresh = true;
 
         messageBusService.sub('stats.up', function(e) {
             refresh = true;
-            events = [];
-        });
-
-        messageBusService.sub('stats.up', function(e, data) {
-            refresh = true;
-            events = data;
         });
 
         statsData = {
@@ -50,22 +44,16 @@
 
 
         function calculate() {
-            if (events.length == 0) {
-                volunteerService.getVolunteerEvents().then(function (data) {
-                    events = data;
+            events = repoService.getEvents();
 
-                    calculateLife();
-                    calculateDayAvg();
-                    calculateWeekAvg();
-                    calculateYearAvg();
-                    calculateHoursMax();
-                    calculateHoursMin();
-                    calculateEventsMax();
-                    calculateEventsMin();
-
-                    events = [];
-                });
-            }
+            calculateLife();
+            calculateDayAvg();
+            calculateWeekAvg();
+            calculateYearAvg();
+            calculateHoursMax();
+            calculateHoursMin();
+            calculateEventsMax();
+            calculateEventsMin();
         }
 
         function calculateLife() {

@@ -14,18 +14,13 @@
 
     function storageService($q) {
         var data = [
-            { "id": 1,  "date": "2014-05-09", "name": "Participated ", "hours": 1 },
-            { "id": 2,  "date": "2014-05-06", "name": "Participated in the Walk 5K 2 in the Walk 5K 2 in the Walk 5K 2", "hours": 2 },
-            { "id": 3,  "date": "2014-05-05", "name": "Participated in the Walk 5K 3 in the Walk 5K 2", "hours": 3 },
-            { "id": 4,  "date": "2014-05-06", "name": "Participated in the Walk 5K 4 in the Walk 5K 2", "hours": 4 },
-            { "id": 5,  "date": "2014-05-08", "name": "Participated in the Walk 5K 5", "hours": 5 },
-            { "id": 6,  "date": "2014-05-05", "name": "Participated in the Walk 5K 6", "hours": 6 },
-            { "id": 7,  "date": "2014-05-08", "name": "Participated in the Walk 5K 7 in the Walk 5K 2", "hours": 7 },
-            { "id": 8,  "date": "2014-05-05", "name": "Participated in the ", "hours": 8 },
-            { "id": 9,  "date": "2014-05-08", "name": "Participated in the Walk 5K 9", "hours": 9 },
-            { "id": 10, "date": "2014-05-05", "name": "Participated in the", "hours": 10 },
-            { "id": 11, "date": "2014-05-08", "name": "Participated in the", "hours": 11 },
-            { "id": 12, "date": "2014-05-05", "name": "Participated in the in the Walk 5K 2in the Walk 5K 2", "hours": 12 }
+            { "id": 1,  "date": "2014-05-09", "name": "1", "hours": 1 },
+            { "id": 2,  "date": "2014-05-06", "name": "12", "hours": 2 },
+            { "id": 3,  "date": "2014-05-05", "name": "123", "hours": 3 },
+            { "id": 4,  "date": "2014-05-06", "name": "1234", "hours": 4 },
+            { "id": 5,  "date": "2014-05-08", "name": "12345", "hours": 5 },
+            { "id": 6,  "date": "2014-05-05", "name": "123456", "hours": 6 },
+            { "id": 7,  "date": "2014-05-08", "name": "1234567", "hours": 7 }
         ];
 
         var service = {
