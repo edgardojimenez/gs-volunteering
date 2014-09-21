@@ -2,88 +2,109 @@
  * Created by ejimenez on 5/26/2014.
  */
 
-app.controller('addController', ['$scope', '$rootScope', 'volunteerService', "$route", 'cordovaService', '$document', function ($scope, $rootScope, service, $route, cordovaService, $document) {
-    var currentEvent = null;
+(function () {
+    'use strict';
 
-    $rootScope.$on("$routeChangeStart", function(){
-        $rootScope.loading = true;
-    });
+    angular
+        .module('GSVolunteeringEvents')
+        .controller('AddController', AddController);
 
-    $rootScope.$on("$routeChangeSuccess", function(){
-        $rootScope.loading = false;
-    });
+    AddController.$inject = ['$rootScope', 'volunteerService', "$route", 'cordovaService', 'messageBusService' ];
 
-    if ($route.current.params.id) {
-        $scope.state = "Update";
-        var id = parseInt($route.current.params.id);
-        service.getVolunteerEvent(id).then(function (data) {
+    function AddController($rootScope, service, $route, cordovaService, messageBusService) {
+        /* jshint validthis: true */
+        var vm = this,
+            currentEvent = null;
 
-            currentEvent = data;
-            $scope.event = service.getNewVolunteerEvent({
-                date: currentEvent.date,
-                name: currentEvent.name,
-                hours: currentEvent.hours
+        vm.state = null;
+        vm.event = null;
+        vm.addEvent = addEvent;
+        vm.clearEvent = clearEvent;
+
+        init();
+
+        function init() {
+            $rootScope.$on("$routeChangeStart", function() {
+                $rootScope.loading = true;
             });
-        });
 
-    } else {
-        $scope.state = "Add";
-        $scope.event = service.getNewVolunteerEvent();
-    }
+            $rootScope.$on("$routeChangeSuccess", function() {
+                $rootScope.loading = false;
+            });
 
-    $scope.addEvent = function (event) {
-        mytestscroll();
-        try {
-            var errors = Validate(event);
-            if (errors.length > 0) {
-                cordovaService.alert(errors.join('\r\n'), 'Validation');
-                return;
-            }
+            if ($route.current.params.id) {
+                vm.state = "Update";
+                var id = parseInt($route.current.params.id);
+                service.getVolunteerEvent(id).then(function (data) {
 
-            if (!currentEvent) {
-                service.addVolunteerEvent(event).then(function () {
-                    cordovaService.notify("Event was added!", 'short', 'top');
-                    $scope.event = service.getNewVolunteerEvent();
+                    currentEvent = data;
+                    vm.event = service.getNewVolunteerEvent({
+                        date: currentEvent.date,
+                        name: currentEvent.name,
+                        hours: currentEvent.hours
+                    });
                 });
+
             } else {
-                currentEvent.date = $scope.event.date;
-                currentEvent.name = $scope.event.name;
-                currentEvent.hours = $scope.event.hours;
-                cordovaService.notify("Event was updated!", 'short', 'top');
+                vm.state = "Add";
+                vm.event = service.getNewVolunteerEvent();
             }
-
-        } catch (ex) {
-            cordovaService.notify("ERROR - " + ex.message, 'long', 'center');
         }
-    };
 
-    $scope.clearEvent = function () {
-        currentEvent = null;
-        $scope.event = service.getNewVolunteerEvent();
-        cordovaService.notify(cordovaService.connectionType(), "short", "top")
-    };
+        function clearEvent() {
+            currentEvent = null;
+            vm.event = service.getNewVolunteerEvent();
+            //cordovaService.notify(cordovaService.connectionType(), "short", "top");
+        }
 
-    function mytestscroll() {
-        var frame = document.getElementById("scroll-pane");
-        var scrollTo = document.getElementById("hours");
-        frame.scrollTop = scrollTo.offsetTop;
+        function addEvent(event) {
+            //mytestscroll();
+            try {
+                var errors = validate(event);
+                if (errors.length > 0) {
+                    cordovaService.alert(errors.join('\r\n'), 'Validation');
+                    return;
+                }
+
+                if (!currentEvent) {
+                    service.addVolunteerEvent(event).then(function () {
+                        cordovaService.notify("Event was added!", 'short', 'top');
+                        vm.event = service.getNewVolunteerEvent();
+                        messageBusService.pub("stats.up");
+                    });
+                } else {
+                    currentEvent.date = vm.event.date;
+                    currentEvent.name = vm.event.name;
+                    currentEvent.hours = vm.event.hours;
+                    messageBusService.pub("stats.up");
+                    cordovaService.notify("Event was updated!", 'short', 'top');
+                }
+
+            } catch (ex) {
+                cordovaService.notify("ERROR - " + ex.message, 'long', 'center');
+            }
+        }
+//        function mytestscroll() {
+//            var frame = document.getElementById("scroll-pane");
+//            var scrollTo = document.getElementById("hours");
+//            frame.scrollTop = scrollTo.offsetTop;
+//        }
+        function validate(event) {
+            var error = [];
+            if (!event.name)
+                error.push("Event name is required!");
+
+            if (event.hours === null)
+                error.push("Event hours is required!");
+
+            if (event.hours !== null && isNaN(event.hours))
+                error.push("Event hours must be a number");
+
+            if (event.hours !== null && !isNaN(event.hours) && !(event.hours > 0 && event.hours < 25))
+                error.push("Event hours must be a number from 1 - 24!");
+
+            return error;
+        }
     }
 
-    function Validate(event) {
-        var error = [];
-        if (!event.name)
-            error.push("Event name is required!");
-
-        if (event.hours === null)
-            error.push("Event hours is required!");
-
-        if (event.hours !== null && isNaN(event.hours))
-            error.push("Event hours must be a number");
-
-        if (event.hours !== null && !isNaN(event.hours) && !(event.hours > 0 && event.hours < 25))
-            error.push("Event hours must be a number from 1 - 24!");
-
-        return error;
-    }
-
-}]);
+})();

@@ -1,41 +1,50 @@
 /**
  * Created by ejimenez on 6/18/2014.
  */
-app.factory('cordovaService', function (phone) {
-    var vibrationMiliseconds = 180;
-    return {
-        alert: function (message, title) {
-            phone.vibrate(vibrationMiliseconds);
-            phone.alert(message, title);
-        },
 
-        prompt: function (message) {
+(function () {
+    'use strict';
 
-        },
+    angular
+        .module('GSVolunteeringEvents')
+        .factory('cordovaService', cordovaService);
 
-        confirm: function (message, title, onConfirm) {
-            phone.confirm(message, title, onConfirm);
-        },
+    cordovaService.$inject = ['cordovaApi'];
 
-        notify: function (message, duration, position) {
-            phone.vibrate(vibrationMiliseconds);
-            phone.notify(message, duration, position);
-        },
+    function cordovaService(phone) {
+        var vibrationMiliseconds = 120;
 
-        splashHide: function () {
-            phone.splashHide();
-        },
+        return {
+            alert: function (message, title) {
+                phone.vibrate(vibrationMiliseconds);
+                phone.alert(message, title);
+            },
 
-        vibrate: function (time) {
-            phone.vibrate(time);
-        },
+            prompt: function (message) {
 
-        isConnected: function () {
-            return phone.isConnected();
-        },
+            },
 
-        connectionType: function () {
-            return phone.connectionType();
-        }
-    };
-});
+            confirm: function (message, title, onConfirm) {
+                phone.confirm(message, title, onConfirm);
+            },
+
+            notify: function (message, duration, position) {
+                phone.vibrate(vibrationMiliseconds);
+                phone.notify(message, duration, position);
+            },
+
+            vibrate: function (time) {
+                phone.vibrate(time);
+            },
+
+            isConnected: function () {
+                return phone.isConnected();
+            },
+
+            connectionType: function () {
+                return phone.connectionType();
+            }
+        };
+    }
+
+})();

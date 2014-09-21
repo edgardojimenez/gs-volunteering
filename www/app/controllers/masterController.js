@@ -6,13 +6,38 @@
 
  */
 
-app.controller('masterController', ['$rootScope', '$scope', "$route", '$location', function ($rootScope, $scope, $route, $location) {
-    $rootScope.$on("$routeChangeStart", function(){
-        $rootScope.loading = true;
-    });
+(function () {
+    'use strict';
 
-    $rootScope.$on("$routeChangeSuccess", function(){
-        $rootScope.loading = false;
-    });
+    angular
+        .module('GSVolunteeringEvents')
+        .controller('MasterController', MasterController);
 
-}]);
+    MasterController.$inject = ['$rootScope', 'statsService'];
+
+    function MasterController($rootScope, statsService) {
+        var vm = this;
+
+        vm.updateStats = updateStats;
+
+        init();
+
+        function init() {
+            $rootScope.$on("$routeChangeStart", function(){
+                $rootScope.loading = true;
+            });
+
+            $rootScope.$on("$routeChangeSuccess", function(){
+                $rootScope.loading = false;
+            });
+
+            updateStats();
+        }
+
+        function updateStats() {
+            vm.stats = statsService.stats();
+        }
+
+    }
+
+})();

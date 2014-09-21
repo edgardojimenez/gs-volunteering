@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--
   ** NOTE **
 
@@ -21,10 +21,11 @@
 	<link rel="stylesheet" href="css/style.css" />
 
 </head>
-<body ng-app="GSVolunteeringEvents" ng-controller="masterController">
+<body ng-controller="MasterController as vm">
 
 <!-- Sidebars -->
-<div ng-include="'app/views/sidebar.html'" class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in" id="mainSidebar"></div>
+<div ng-include="'app/views/mainSidebar.html'" class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in" id="mainSidebar"></div>
+<div ng-include="'app/views/optionsSidebar.html'" class="sidebar sidebar-right" toggleable parent-active-class="sidebar-right-in" id="optionsSidebar"></div>
 
 <div class="app">
 
@@ -32,7 +33,7 @@
 
 	<div class="navbar navbar-app navbar-absolute-top">
 		<div class="navbar-brand navbar-brand-center" yield-to="title">
-			<span>Volunteering</span>
+            <span><img class="logo" src="css/images/gs4.png"  />&nbsp;volunteering</span>
 		</div>
 
 		<div class="btn-group pull-left">
@@ -40,10 +41,14 @@
 				<i class="fa fa-bars"></i>
 			</div>
 		</div>
-
-		<div class="btn-group pull-right">
-			<a href="/" class="btn btn-navbar"><img src="css/images/gs4.png"></a>
-		</div>
+        <div class="btn-group pull-right" yield-to="navbarAction">
+            <div ng-click="toggle('optionsSidebar'); vm.updateStats()" class="btn btn-navbar">
+                <i class="fa fa-cogs"></i>
+            </div>
+        </div>
+		<!--<div class="btn-group pull-right">-->
+			<!--<a href="/" class="btn btn-navbar"><img src="css/images/gs4.png"></a>-->
+		<!--</div>-->
 	</div>
 
 	<div class="navbar navbar-app navbar-absolute-bottom">
@@ -68,25 +73,25 @@
 <script type="text/javascript" src="lib/js/angular-route.min.js"></script>
 <script type="text/javascript" src="lib/js/angular-touch.min.js"></script>
 <script type="text/javascript" src="lib/js/mobile-angular-ui.min.js"></script>
-<script type="text/javascript" src="app/services/cordova.js"></script>
 <script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="app/services/dataService.js"></script>
+<script type="text/javascript" src="app/services/messageBusService.js"></script>
+<script type="text/javascript" src="app/services/statsService.js"></script>
+<script type="text/javascript" src="app/services/memStorageService.js"></script>
+<script type="text/javascript" src="app/services/deviceStorageService.js"></script>
+<script type="text/javascript" src="app/services/cordovaapi.js"></script>
+<script type="text/javascript" src="app/services/cordovaService.js"></script>
+<script type="text/javascript" src="app/services/utils.js"></script>
+<script type="text/javascript" src="app/services/repositoryMemory.js"></script>
+<script type="text/javascript" src="app/services/volunteerService.js"></script>
 <script type="text/javascript" src="app/controllers/masterController.js"></script>
 <script type="text/javascript" src="app/controllers/addController.js"></script>
 <script type="text/javascript" src="app/controllers/listController.js"></script>
-<script type="text/javascript" src="app/services/cordovaService.js"></script>
-<script type="text/javascript" src="app/services/volunteerService.js"></script>
-<script type="text/javascript" src="app/services/utils.js"></script>
-<script type="text/javascript" src="app/services/repositoryMemory.js"></script>
+<script type="text/javascript" src="app/controllers/statsController.js"></script>
 <script type="text/javascript">
-	document.addEventListener("deviceready", function() {
-		phone.splashHide();
-		document.addEventListener("pause", phone.onPause, false);
-		document.addEventListener("resume", Phone.onResume, false);
-		document.addEventListener("online", phone.onOnline, false);
-		document.addEventListener("offline", phone.onOffline, false);
-		document.addEventListener("backbutton", phone.onBackButton, false);
-	}, false);
-
+(function () {
+    angular.injector(['GSVolunteeringEvents']).get('cordovaApi').init();
+})();
 </script>
 </body>
 </html>

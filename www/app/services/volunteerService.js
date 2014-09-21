@@ -2,37 +2,55 @@
  * Created by ejimenez on 5/26/2014.
  */
 
-app.factory('volunteerService', ['repoMemory', function(repo) {
+(function () {
+    'use strict';
 
-    return {
+    angular
+        .module('GSVolunteeringEvents')
+        .factory('volunteerService', volunteerService);
 
-        getVolunteerEvents: function () {
+    volunteerService.$inject =  ['repository'];
+
+    function volunteerService(repo) {
+        var service = {
+            getVolunteerEvents: getVolunteerEvents,
+            getVolunteerEventNames: getVolunteerEventNames,
+            getVolunteerEvent: getVolunteerEvent,
+            getNewVolunteerEvent: getNewVolunteerEvent,
+            addVolunteerEvent: addVolunteerEvent,
+            removeVolunteerEvents: removeVolunteerEvents,
+            updateVolunteerEvents: updateVolunteerEvents
+        };
+
+        function getVolunteerEvents() {
             return repo.getEvents();
-        },
+        }
 
-        getVolunteerEventNames: function () {
+        function getVolunteerEventNames() {
             return repo.getEventNames();
-        },
+        }
 
-        getVolunteerEvent: function (id) {
+        function getVolunteerEvent(id) {
             return repo.getEvent(id);
-        },
+        }
 
-        getNewVolunteerEvent: function (options) {
+        function getNewVolunteerEvent(options) {
             return repo.getNewEvent(options);
-        },
+        }
 
-        addVolunteerEvent: function (volunteerEvent) {
+        function addVolunteerEvent(volunteerEvent) {
             return repo.addEvent(volunteerEvent);
-        },
+        }
 
-        removeVolunteerEvents: function (volunteerEvent) {
+        function removeVolunteerEvents(volunteerEvent) {
             return repo.removeEvent(volunteerEvent);
-        },
+        }
 
-        updateVolunteerEvents: function (volunteerEvent) {
+        function updateVolunteerEvents(volunteerEvent) {
             return repo.updateEvent(volunteerEvent);
         }
 
-    };
-}]);
+        return service;
+    }
+
+})();

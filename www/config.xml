@@ -24,6 +24,9 @@
         The "device" permission is required for the 'deviceready' event.
     -->
     <feature name="http://api.phonegap.com/1.0/device" />
+    <feature name="Toast">
+        <param name="android-package" value="nl.xservices.plugins.Toast" />
+    </feature>
 
     <!--
         If you do not want any permissions to be added to your app, add the
@@ -59,6 +62,7 @@
     <gap:plugin name="org.apache.cordova.splashscreen" version="0.2.7" />
     <gap:plugin name="org.apache.cordova.vibration" version="0.3.7" />
     <gap:plugin name="org.apache.cordova.network-information" version="0.2.7" />
+    <gap:plugin name="org.apache.cordova.file" version="1.0.1" />
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png" />

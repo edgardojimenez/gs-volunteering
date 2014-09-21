@@ -5,11 +5,11 @@
 		<form action="" id="">
 
 			<div bs-panel title="">
-				<div id="scroll-pane" bs-panel title="{{state}} Event">
+				<div id="scroll-pane" bs-panel title="{{vm.state}} Event">
 					<input
 									bs-form-control
 									type="date"
-									ng-model="event.date"
+									ng-model="vm.event.date"
 									label="Date"
 									label-class="col-xs-3 col-sm-2 col-lg-1"
 									class="col-xs-9 col-sm-10 col-lg-11"
@@ -17,24 +17,24 @@
 					<input id="hours"
 									bs-form-control
 									type="number"
-									ng-model="event.hours"
+									ng-model="vm.event.hours"
 									label="Hours"
 									label-class="col-xs-3 col-sm-2 col-lg-1"
 									class="col-xs-9 col-sm-10 col-lg-11"
 									/>
 
 					<textarea type="text"
-										ng-model="event.name"
+										ng-model="vm.event.name"
 										placeholder="Volunteering Event..."
 										label="" bs-form-control></textarea>
 					<br />
 
 					<div class="btn-group btn-group-justified">
 						<div class="btn-group">
-							<button type="button" class="btn btn-primary" ng-click="addEvent(event)">Save</button>
+							<button type="button" class="btn btn-primary" ng-click="vm.addEvent(vm.event)">Save</button>
 						</div>
 						<div class="btn-group">
-							<button type="button" class="btn btn-default" ng-click="clearEvent(event)">Clear</button>
+							<button type="button" class="btn btn-default" ng-click="vm.clearEvent(vm.event)">Clear</button>
 						</div>
 					</div>
 				</div>
