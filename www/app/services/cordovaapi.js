@@ -9,9 +9,9 @@
         .module('GSVolunteeringEvents')
         .factory('cordovaApi', cordovaApi);
 
-    cordovaApi.$inject = ['$window', '$document', 'dataSource'];
+    cordovaApi.$inject = ['$window', 'dataSource'];
 
-    function cordovaApi($window, $document, dataSource) {
+    function cordovaApi($window, dataSource) {
 
         var storage,
 
@@ -27,15 +27,16 @@
             };
 
         function init () {
-            if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|MSIE)/)) {
+            console.log(navigator.userAgent);
+            if (navigator.userAgent.match(/(Chrome|iPhone|iPod|iPad|Android|BlackBerry|MSIE)/)) {
                 console.log("Mobile");
 
-                $document.addEventListener("deviceready", onDeviceReady, false);
-                $document.addEventListener("pause", onPause, false);
-                $document.addEventListener("resume", onResume, false);
-                $document.addEventListener("online", onOnline, false);
-                $document.addEventListener("offline", onOffline, false);
-                $document.addEventListener("backbutton", onBackButton, false);
+                $window.document.addEventListener("deviceready", onDeviceReady, false);
+                $window.document.addEventListener("pause", onPause, false);
+                $window.document.addEventListener("resume", onResume, false);
+                $window.document.addEventListener("online", onOnline, false);
+                $window.document.addEventListener("offline", onOffline, false);
+                $window.document.addEventListener("backbutton", onBackButton, false);
             } else {
                 console.log("browser");
                 ready();
@@ -50,12 +51,11 @@
                 if (data)
                     dataSource.data = JSON.parse(data);
 
+            }).catch(function(e){
+                alert(e.code + ' - ' + e.error.code, 'Error');
+            }).finally(function(){
                 bootstrap();
                 splashHide();
-            }).fail(function(e){
-                bootstrap();
-                splashHide();
-                alert(e.code + ' - ' + e.error, 'Error');
             });
         }
 
@@ -67,15 +67,15 @@
                 if (data)
                     dataSource.data = data;
 
+            }).catch(function(e){
+                alert(e.code + ' - ' + e.error.code, 'Error');
+            }).finally(function(){
                 bootstrap();
-            }).fail(function(e){
-                bootstrap();
-                alert(e.code + ' - ' + e.error, 'Error');
             });
         }
 
         function bootstrap() {
-            angular.bootstrap($document, ['GSVolunteeringEvents']);
+            angular.bootstrap($window.document, ['GSVolunteeringEvents']);
         }
 
 
