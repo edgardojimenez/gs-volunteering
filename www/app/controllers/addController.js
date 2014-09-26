@@ -24,13 +24,6 @@
         init();
 
         function init() {
-            $rootScope.$on("$routeChangeStart", function() {
-                $rootScope.loading = true;
-            });
-
-            $rootScope.$on("$routeChangeSuccess", function() {
-                $rootScope.loading = false;
-            });
 
             if ($route.current.params.id) {
                 vm.state = "Update";

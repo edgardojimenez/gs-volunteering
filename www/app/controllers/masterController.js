@@ -16,20 +16,23 @@
     MasterController.$inject = ['$rootScope', 'statsService'];
 
     function MasterController($rootScope, statsService) {
+        console.log('-- In MasterController');
         var vm = this;
-
-        vm.updateStats = updateStats;
 
         init();
 
         function init() {
             $rootScope.$on("$routeChangeStart", function(){
+                console.log('--- In MasterController  $rootScope.loading = true');
                 $rootScope.loading = true;
             });
 
             $rootScope.$on("$routeChangeSuccess", function(){
+                console.log('--- In MasterController  $rootScope.loading = false');
                 $rootScope.loading = false;
             });
+
+            vm.updateStats = updateStats;
 
             updateStats();
         }

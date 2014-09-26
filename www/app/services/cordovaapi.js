@@ -28,7 +28,7 @@
 
         function init () {
             console.log(navigator.userAgent);
-            if (navigator.userAgent.match(/(Chrome|iPhone|iPod|iPad|Android|BlackBerry|MSIE)/)) {
+            if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|MSIE)/)) {
                 console.log("Mobile");
 
                 $window.document.addEventListener("deviceready", onDeviceReady, false);

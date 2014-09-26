@@ -23,14 +23,6 @@
         init();
 
         function init() {
-            $rootScope.$on("$routeChangeStart", function(){
-                $rootScope.loading = true;
-            });
-
-            $rootScope.$on("$routeChangeSuccess", function(){
-                $rootScope.loading = false;
-            });
-
             vm.events = repoService.getEvents();
         }
 
