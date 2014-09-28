@@ -32,9 +32,11 @@
                 $rootScope.loading = false;
             });
 
+            console.log("APP - before updateStats");
             vm.updateStats = updateStats;
 
             updateStats();
+            console.log("APP - before updateStats");
         }
 
         function updateStats() {

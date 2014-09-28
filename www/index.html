@@ -96,9 +96,12 @@
         }
 
         function display() {
+            var list = '';
             for (var i = 0; i < logs.length; i++) {
-                console.log(logs[i]);
+                list += logs[i] + '\r\n';
             }
+            console.log(list);
+            return list;
         }
 
         return {
