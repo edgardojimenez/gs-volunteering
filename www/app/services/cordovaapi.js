@@ -45,7 +45,7 @@
 
         function onDeviceReady() {
             console.log("APP - onDeviceReady");
-            bootstrap();
+
             storage = angular.injector(['GSVolunteeringEvents']).get('deviceStorageService');
             storage.getData().then(function (data) {
                 if (data)
@@ -56,7 +56,7 @@
                 alert(e.code + ' - ' + e.error.code, 'Error');
             }).finally(function(){
                 console.log("APP - finally");
-
+                bootstrap();
                 splashHide();
             });
         }
@@ -136,7 +136,7 @@
 
         function onResume() {
             console.log("APP - onResume");
-            console.display();
+            console.log(console.display());
         }
 
         function onOnline() {
