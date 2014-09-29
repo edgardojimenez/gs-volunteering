@@ -4,14 +4,15 @@
 
 (function () {
     'use strict';
+    console.log("APP - AddController");
 
     angular
         .module('GSVolunteeringEvents')
         .controller('AddController', AddController);
 
-    AddController.$inject = ['$rootScope', 'repository', "$route", 'cordovaService', 'messageBusService' ];
+    AddController.$inject = ['repository', "$route", 'cordovaService', 'messageBusService' ];
 
-    function AddController($rootScope, repoService, $route, cordovaService, messageBusService) {
+    function AddController(repoService, $route, cordovaService, messageBusService) {
         /* jshint validthis: true */
         var vm = this,
             currentEvent = null;

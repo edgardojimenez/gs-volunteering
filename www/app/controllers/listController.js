@@ -4,14 +4,15 @@
 
 (function () {
     'use strict';
+    console.log("APP - ListController");
 
     angular
         .module('GSVolunteeringEvents')
         .controller('ListController', ListController);
 
-    ListController.$inject = ['$rootScope', 'repository', 'cordovaService', 'messageBusService'];
+    ListController.$inject = ['repository', 'cordovaService', 'messageBusService'];
 
-    function ListController($rootScope, repoService, cordovaService, messageBusService) {
+    function ListController(repoService, cordovaService, messageBusService) {
         /* jshint validthis: true */
         var vm = this;
 

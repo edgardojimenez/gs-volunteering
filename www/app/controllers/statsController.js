@@ -15,6 +15,7 @@
 
 (function () {
     'use strict';
+    console.log("APP - StatsController");
 
     angular
         .module('GSVolunteeringEvents')
