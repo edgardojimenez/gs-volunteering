@@ -4,7 +4,7 @@
 
 (function () {
     'use strict';
-
+    console.log("APP - statsService");
     angular
         .module('GSVolunteeringEvents')
         .factory('statsService', statsService);

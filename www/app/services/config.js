@@ -5,6 +5,9 @@
  */
 
 (function () {
+    'use strict';
+    console.log("APP - config");
+
     angular
         .module('GSVolunteeringEvents')
         .factory('config', function() {

@@ -5,6 +5,7 @@
 
 (function () {
     'use strict';
+    console.log("APP - memoryStorageService");
 
     angular
         .module('GSVolunteeringEvents')

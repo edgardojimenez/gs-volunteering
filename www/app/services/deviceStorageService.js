@@ -1,7 +1,8 @@
 ﻿
 (function () {
     'use strict';
-
+    console.log("APP - deviceStorageService");
+    
     angular
         .module('GSVolunteeringEvents')
         .factory('deviceStorageService', storageService);

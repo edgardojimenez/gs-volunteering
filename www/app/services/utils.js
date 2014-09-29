@@ -3,6 +3,9 @@
  */
 
 (function () {
+    'use strict';
+    console.log("APP - utils");
+
     angular
         .module('GSVolunteeringEvents')
         .factory('utils', function () {

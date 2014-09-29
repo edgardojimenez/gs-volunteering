@@ -7,6 +7,9 @@
 // */
 
 (function () {
+    'use strict';
+    console.log("APP - app");
+
     angular
         .module('GSVolunteeringEvents', [
             "ngRoute",

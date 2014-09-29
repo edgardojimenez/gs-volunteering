@@ -4,6 +4,7 @@
 
 (function () {
     'use strict';
+    console.log("APP - AboutController");
 
     angular
         .module('GSVolunteeringEvents')

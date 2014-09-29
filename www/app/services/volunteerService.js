@@ -4,6 +4,7 @@
 
 (function () {
     'use strict';
+    console.log("APP - volunteerService");
 
     angular
         .module('GSVolunteeringEvents')
