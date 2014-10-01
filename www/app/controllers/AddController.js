@@ -47,11 +47,9 @@
         function clearEvent() {
             currentEvent = null;
             vm.event = repoService.getNewEvent();
-            //cordovaService.notify(cordovaService.connectionType(), "short", "top");
         }
 
         function addEvent(event) {
-            //mytestscroll();
             try {
                 var errors = validate(event);
                 if (errors.length > 0) {
@@ -76,11 +74,7 @@
                 cordovaService.notify("ERROR - " + ex.message, 'long', 'center');
             }
         }
-//        function mytestscroll() {
-//            var frame = document.getElementById("scroll-pane");
-//            var scrollTo = document.getElementById("hours");
-//            frame.scrollTop = scrollTo.offsetTop;
-//        }
+
         function validate(event) {
             var error = [];
             if (!event.name)
