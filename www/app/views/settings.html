@@ -3,20 +3,23 @@
 </div>
 <div class="scrollable">
 	<div class="scrollable-content">
-		<form action="" id="">
-			<div bs-panel title="Search">
-                <select type="text" ng-model="vm.event.name" placeholder="Search Methods..." label="Method" bs-form-control>
-                    <options>By Name</options>
-                    <options>Last (n) Days</options>
-                    <options>Month</options>
-                    <options>Year</options>
-                    <options>Date Range</options>
+        <div class="list-group gs-blank" >
+            <div bs-panel title="Search">
+                <select type="text" bs-form-control>
+                    <option>Select Search Methods...</option>
+                    <option selected>Search By Name</option>
+                    <option>Search Last (n) Days</option>
+                    <option>Search Date Range</option>
                 </select>
-			</div>
-            <div bs-panel title="Options">
-                test
             </div>
-		</form>
+            <div bs-panel title="Sort">
+                <select type="text" bs-form-control>
+                    <option>Select Sort Methods...</option>
+                    <option>Sort By Name</option>
+                    <option selected>Sort By Date</option>
+                </select>
+            </div>
+        </div>
 	</div>
 </div>
 

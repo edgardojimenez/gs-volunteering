@@ -27,7 +27,8 @@ a.list-group-item.active, a.list-group-item.active:focus, a.list-group-item.acti
 }
 
 .logo {
-    height: 75%;
+    height: 100%;
+    vertical-align: text-bottom;
 }
 
 h1 {
@@ -57,7 +58,7 @@ h1 {
 }
 
 #stats td {
-    padding: 5px;
+    padding: 8px;
     text-align: right;
 }
 
@@ -72,6 +73,17 @@ h1 {
 .gs-heading {
     color: #029c4f;
     font-weight: bold;
+    font-size: 23px;
+}
+
+.gs-blank {
+    height: 100%;
+    background-color: #ffffff;
+}
+
+.gs-about {
+    text-align: center;
+    padding: 20px;
 }
 
 

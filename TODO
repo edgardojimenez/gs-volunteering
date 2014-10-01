@@ -1,12 +1,17 @@
 
-- Fix the image quality
-- add search
-- add the storage
-- add the write to file
-- hook life cycle events
-- open in windows phone
+- Make image bigger so it display in the Device
+- Finish settings
+- Finish about
+- Add sort
+- Add more search options
+- Test in windows phone
 - Fix the scroll
-- add a link to an inages
+- Fix the delete refresh
+- Add backup?
+- fix stat page
+- find out where data is save
+- change spash
+
 - Wind phone 8
 	- fix the images
 	- fix the slider menu

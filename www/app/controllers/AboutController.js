@@ -10,22 +10,14 @@
         .module('GSVolunteeringEvents')
         .controller('AboutController', AboutController);
 
-    AboutController.$inject = ['$rootScope'];
-
-    function AboutController($rootScope) {
+    function AboutController() {
         /* jshint validthis: true */
         var vm = this;
 
         init();
 
         function init() {
-            $rootScope.$on("$routeChangeStart", function() {
-                $rootScope.loading = true;
-            });
 
-            $rootScope.$on("$routeChangeSuccess", function() {
-                $rootScope.loading = false;
-            });
         }
     }
 

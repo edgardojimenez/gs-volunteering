@@ -38,6 +38,8 @@
                 $window.document.addEventListener("online", onOnline, false);
                 $window.document.addEventListener("offline", onOffline, false);
                 $window.document.addEventListener("backbutton", onBackButton, false);
+                $window.document.addEventListener("showkeyboard", onShowKeyboard, false);
+                $window.document.addEventListener("hidekeyboard", onHideKeyboard, false);
             } else {
                 console.log("APP - browser");
                 ready();
@@ -153,6 +155,16 @@
         function onBackButton() {
             console.log("APP - onBackButton");
             notify("backButton", "short", "bottom");
+        }
+
+        function onHideKeyboard() {
+            console.log("APP - onHideKeyboard");
+            notify("onHideKeyboard", "short", "top");
+        }
+
+        function onShowKeyboard() {
+            console.log("APP - onShowKeyboard");
+            notify("onShowKeyboard", "short", "top");
         }
 
         function isConnected() {
