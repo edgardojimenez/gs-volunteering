@@ -28,9 +28,7 @@
 
             if ($route.current.params.id) {
                 vm.state = "Update";
-                var id = parseInt($route.current.params.id);
-
-                currentEvent = repoService.getEvent(id);
+                currentEvent = repoService.getEvent($route.current.params.id);
 
                 vm.event = repoService.getNewEvent({
                     date: currentEvent.date,
