@@ -8,14 +8,15 @@
 
 				<div id="scroll-pane" bs-panel title="{{vm.state}} Event">
 					<input
-									
+									bs-form-control
 									type="date"
 									ng-model="vm.event.date"
-                                    placeholder="Event Date..."
+                                    placeholder="yyyy-MM-dd"
+                                    min="2013-01-01"
 									label="" class="gs-date"
 									/>
 					<input id="hours"
-
+									bs-form-control
 									type="number"
 									ng-model="vm.event.hours"
                                     placeholder="Event hours..."
