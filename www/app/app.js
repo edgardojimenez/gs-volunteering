@@ -14,7 +14,8 @@
         .module('GSVolunteeringEvents', [
             "ngRoute",
             "ngTouch",
-            "mobile-angular-ui"
+            "mobile-angular-ui",
+            "angular-datepicker"
         ]);
 
     angular
@@ -47,6 +48,8 @@
                     controllerAs: 'vm'
                 }).otherwise({ redirectTo: '/' });
         });
+
+
 
 })();
 

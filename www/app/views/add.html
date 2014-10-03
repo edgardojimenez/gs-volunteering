@@ -7,16 +7,16 @@
 		<form action="" id="">
 
 				<div id="scroll-pane" bs-panel title="{{vm.state}} Event">
+                    <!--<input type="text" pick-a-date="date" pick-a-date-options="options" /> {{ date }}-->
 					<input
-									bs-form-control
-									type="date"
-									ng-model="vm.event.date"
-                                    placeholder="yyyy-MM-dd"
-                                    min="2013-01-01"
-									label="Date"
-                                    label-class="col-xs-3 col-sm-2 col-lg-1"
-                                    class="col-xs-9 col-sm-10 col-lg-11 gs-number"
-									/>
+                        bs-form-control
+                        type="text"
+                        ng-model="vm.event.date"
+                        placeholder="Event Date..."
+                        pick-a-date="date"
+                        pick-a-date-options="{ format: 'mm/dd/yyyy' }"
+                        label=""
+                        />
 					<input id="hours"
 									bs-form-control
 									type="number"
@@ -26,6 +26,7 @@
                                     label-class="col-xs-3 col-sm-2 col-lg-1"
                                     class="col-xs-9 col-sm-10 col-lg-11 gs-number"
 									/>
+
 
 					<textarea type="text"
 										ng-model="vm.event.name"

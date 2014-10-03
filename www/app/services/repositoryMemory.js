@@ -41,9 +41,9 @@
 
         function getNewEvent(options) {
             if (options)
-                return { "id": options.id, "date": $filter("date")(options.date, 'yyyy-MM-dd'), "name": options.name, "hours": options.hours }
+                return { "id": options.id, "date": $filter("date")(options.date, 'MM/dd/yyyy'), "name": options.name, "hours": options.hours }
 
-            return { "id": utils.getId(), "date": $filter("date")(Date.now(), 'yyyy-MM-dd'), "name": null, "hours": null };
+            return { "id": utils.getId(), "date": $filter("date")(Date.now(), 'MM/dd/yyyy'), "name": null, "hours": null };
         }
 
         function getEvents() {
