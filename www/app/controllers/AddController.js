@@ -10,9 +10,9 @@
         .module('GSVolunteeringEvents')
         .controller('AddController', AddController);
 
-    AddController.$inject = ['repository', "$route", 'cordovaService', 'messageBusService' ];
+    AddController.$inject = ['$rootScope', 'repository', "$route", 'cordovaService', 'messageBusService' ];
 
-    function AddController(repoService, $route, cordovaService, messageBusService) {
+    function AddController($rootScope, repoService, $route, cordovaService, messageBusService) {
         /* jshint validthis: true */
         var vm = this,
             currentEvent = null;
@@ -21,6 +21,12 @@
         vm.event = null;
         vm.addEvent = addEvent;
         vm.clearEvent = clearEvent;
+        vm.openCalendar = openCalendar;
+        vm.pickadate = {
+            date: '2014-11-26',
+            minDate: '2014-09-05',
+            maxDate: '2015-12-04'
+        }
 
         init();
 
@@ -88,6 +94,10 @@
                 error.push("Event hours must be a number from 1 - 24!");
 
             return error;
+        }
+
+        function openCalendar() {
+            $rootScope.toggle('myOverlay', 'on');
         }
     }
 

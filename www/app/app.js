@@ -15,7 +15,7 @@
             "ngRoute",
             "ngTouch",
             "mobile-angular-ui",
-            "angular-datepicker"
+            "pickadate"
         ]);
 
     angular
