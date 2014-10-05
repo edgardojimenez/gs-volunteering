@@ -22,11 +22,14 @@
         vm.addEvent = addEvent;
         vm.clearEvent = clearEvent;
         vm.openCalendar = openCalendar;
+        vm.closeCalendar = closeCalendar;
         vm.pickadate = {
-            date: '2014-11-26',
-            minDate: '2014-09-05',
-            maxDate: '2015-12-04'
-        }
+            minDate: '2014-01-01'
+        };
+        vm.slider = {
+
+            model: 12
+        };
 
         init();
 
@@ -45,7 +48,10 @@
             } else {
                 vm.state = "Add";
                 vm.event = repoService.getNewEvent();
+                vm.pickadate.date = formatToPickDate(vm.event.date);
             }
+            //var elem = document.querySelector("#calendarOverlay .overlay-body");
+            //elem.addEventListener("click", closeCalendar, false);
         }
 
         function clearEvent() {
@@ -97,7 +103,22 @@
         }
 
         function openCalendar() {
-            $rootScope.toggle('myOverlay', 'on');
+            $rootScope.toggle('calendarOverlay', 'on');
+        }
+
+        function closeCalendar() {
+            $rootScope.toggle('calendarOverlay', 'off');
+            vm.event.date = formatFromPickDate(vm.pickadate.date);
+        }
+
+        function formatToPickDate(date) {
+            //12/24/2014
+            return date.substr(6,4) + "-" + date.substr(0,2) + "-" + date.substr(3,2);
+        }
+
+        function formatFromPickDate(date) {
+            //2014-12-24
+            return date.substr(5,2) + "/" + date.substr(8,2) + "/" + date.substr(0,4);
         }
     }
 

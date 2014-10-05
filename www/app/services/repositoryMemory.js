@@ -13,7 +13,7 @@
     repository.$inject = ['$filter','utils', 'dataSource'];
 
     function repository($filter, utils, dataSource) {
-        var currentData, service;
+        var currentData, service, filterParams;
 
         init();
 
@@ -55,23 +55,29 @@
         }
 
         function removeEvent(event) {
-            var index = -1, removeEvent;
-            currentData.forEach(function(item, i) {
-                if (item.id == event.id)
+            var index = -1, removeEvent, len = dataSource.data.length;
+
+            for (var i = 0; i < len; i++) {
+                if (dataSource.data[i].id == event.id){
                     index = i;
-            });
+                    break;
+                }
+            }
 
             if (index >= 0)
-                removeEvent = currentData.splice(index,1);
+                removeEvent = dataSource.data.splice(index,1);
+
+            searchEvents(filterParams);
 
             return removeEvent;
         }
 
         function searchEvents(filter) {
-            if (filter) {
+            filterParams = filter;
+            if (filterParams) {
                 currentData = dataSource.data;
                 var data = currentData.filter(function(item){
-                    return (item.name.toLowerCase().indexOf(filter.toLowerCase()) > -1);
+                    return (item.name.toLowerCase().indexOf(filterParams.toLowerCase()) > -1);
                 });
 
                 currentData = data;

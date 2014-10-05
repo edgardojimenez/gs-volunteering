@@ -89,7 +89,8 @@
           minDate: '=',
           maxDate: '=',
           disabledDates: '=',
-          weekStartsOn: '='
+          weekStartsOn: '=',
+          select: '&onSelect'
         },
         template:
           '<div class="pickadate">' +
@@ -102,7 +103,7 @@
                 '{{currentDate | date:"MMMM yyyy"}}' +
               '</h3>' +
             '</div>' +
-            '<div class="pickadate-body">' +
+            '<div class="pickadate-body" ng-click="select()">' +
               '<div class="pickadate-main">' +
                 '<ul class="pickadate-cell">' +
                   '<li class="pickadate-head" ng-repeat="dayName in dayNames">' +
@@ -200,6 +201,7 @@
           function isDateDisabled(dateObj) {
             return (/pickadate-disabled/.test(dateObj.className));
           }
+
         }
       };
     }]);

@@ -27,11 +27,12 @@
             vm.events = repoService.getEvents();
         }
 
-        function removeEvent(event, evt) {
+        function removeEvent(index, evt) {
             evt.preventDefault();
             cordovaService.confirm("Do you want to remove event?", "Remove Event", function(button) {
                 if (button === 1) {
-                    repoService.removeEvent(event);
+                    repoService.removeEvent(index);
+                    init();
                     messageBusService.pub("stats.up");
                 }
             })
@@ -41,8 +42,6 @@
             vm.events = repoService.searchEvents(vm.searchElement);
             messageBusService.pub("stats.up");
         }
-
-
     }
 
 })();

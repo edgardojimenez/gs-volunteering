@@ -7,17 +7,6 @@
 		<form action="" id="">
 
 				<div id="scroll-pane" bs-panel title="{{vm.state}} Event">
-                    <!--<input type="text" pick-a-date="date" pick-a-date-options="options" /> {{ date }}-->
-					<!--<input-->
-                        <!--bs-form-control-->
-                        <!--bs-datepicker-->
-                        <!--type="text"-->
-                        <!--ng-model="vm.event.date"-->
-                        <!--placeholder="Event Date..."-->
-                        <!--data-date-format="dd/mm/yyyy"-->
-                        <!--label=""-->
-                        <!--/>-->
-                    <!--<button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>-->
                     <br>
                     <div class="input-group"  >
                         <input  class="form-control"
@@ -33,28 +22,30 @@
                         </span>
                     </div>
                     <div pickadate></div>
-                    <div overlay="myOverlay">
+                    <div overlay="calendarOverlay">
                         <div class="gs-pickadate-container">
-                            <div pickadate ng-model="vm.pickadate.date"  min-date="vm.pickadate.minDate" max-date="vm.pickadate.maxDate" ></div>
+                            <div pickadate ng-model="vm.pickadate.date"  min-date="vm.pickadate.minDate" max-date="vm.pickadate.maxDate" on-select="vm.closeCalendar()" ></div>
                         </div>
-                        <!--<p toggle="off" bubble target="myOverlay">-->
-                            <!--<span class="btn btn-primary">Ok</span>-->
-                            <!--<span class="btn btn-default">Cancel</span>-->
-                        <!--</p>-->
                     </div>
-					<input id="hours"
-                        bs-form-control
-                        type="number"
-                        ng-model="vm.event.hours"
-                        placeholder="Event hours..."
-                        label="Hours"
-                        label-class="col-xs-3 col-sm-2 col-lg-1"
-                        class="col-xs-9 col-sm-10 col-lg-11 gs-number"
-                        />
+                    <rzslider
+                            rz-slider-floor="1"
+                            rz-slider-ceil="24"
+                            rz-slider-model="vm.slider.model"
+                            rz-slider-step="1"></rzslider>
+					<!--<input id="hours"-->
+                        <!--bs-form-control-->
+                        <!--type="number"-->
+                        <!--ng-model="vm.event.hours"-->
+                        <!--placeholder="Event hours..."-->
+                        <!--label="Hours"-->
+                        <!--label-class="col-xs-3 col-sm-2 col-lg-1"-->
+                        <!--class="col-xs-9 col-sm-10 col-lg-11 gs-number"-->
+                        <!--/>-->
 					<textarea type="text"
 										ng-model="vm.event.name"
 										placeholder="Event Name..."
 										label="" bs-form-control></textarea>
+                    <input type="range" name="points" min="0" max="10">
 					<br class="br-spacer" />
 
 					<div class="btn-group btn-group-justified">
@@ -71,23 +62,3 @@
 		</form>
 	</div>
 </div>
-
-<!--<div id="add" style="padding: 20px;" >-->
-	<!--<span id="notification"></span>-->
-	<!--<br />-->
-	<!--<input kendo-date-picker id="eventDate" style="height: 1.9em; width: 100%;" k-ng-model="event.date" />-->
-	<!--<br />-->
-	<!--<br />-->
-	<!--<input kendo-auto-complete Id="volunteerEvent" ng-model="event.name" style="height: 39px; width: 100%;" k-data-source="volunteerEvents" />-->
-	<!--<br />-->
-	<!--<br />-->
-	<!--<br />	<br />-->
-
-	<!--<div kendo-slider  k-min="0" k-max="24" ng-model="event.hours" k-show-buttons="false" k-large-step="24" k-small-step=".5" k-tooltip="{ enabled: true }"-->
-			 <!--style="width: 100%;"></div>-->
-	<!--<br />-->
-	<!--<br />-->
-	<!--<br />-->
-	<!--<br />-->
-	<!--<button kendo-mobile-button id="save" style="height: 48px; width: 100%;" k-on-click="addEvent(event)" >Save Event</button>-->
-<!--</div>-->
