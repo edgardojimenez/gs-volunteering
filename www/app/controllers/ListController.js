@@ -27,11 +27,11 @@
             vm.events = repoService.getEvents();
         }
 
-        function removeEvent(index, evt) {
+        function removeEvent(event, evt) {
             evt.preventDefault();
             cordovaService.confirm("Do you want to remove event?", "Remove Event", function(button) {
                 if (button === 1) {
-                    repoService.removeEvent(index);
+                    repoService.removeEvent(event);
                     init();
                     messageBusService.pub("stats.up");
                 }
