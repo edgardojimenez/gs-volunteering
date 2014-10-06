@@ -1,0 +1,14 @@
+<div content-for="title">
+    <span><img class="logo" src="css/images/gs4.png"  />&nbsp;&nbsp;<b>Debug</b></span>
+</div>
+<div class="scrollable" style="background-color: #fff">
+    <div class="scrollable-content" style="height: 100%" >
+        <div class="list-group" style="height: d00%;background-color: #fff">
+            <button type="button" class="btn btn-primary" ng-click="vm.clear()">Clear</button>
+            <textarea class="gs-debug" type="text" rows="1000" style="width: 1000px; height: 100%;"
+                      ng-model="vm.logs"
+                      ></textarea>
+                <!--<div class="gs-debug" style="width: 100%; height: 100%;text-wrap: none">{{ vm.logs }}</div>-->
+        </div>
+    </div>
+</div>

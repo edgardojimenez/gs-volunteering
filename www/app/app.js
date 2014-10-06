@@ -47,6 +47,10 @@
                     templateUrl: 'app/views/about.html',
                     controller: 'AboutController',
                     controllerAs: 'vm'
+                }).when('/debug', {
+                    templateUrl: 'app/views/debug.html',
+                    controller: 'DebugController',
+                    controllerAs: 'vm'
                 }).otherwise({ redirectTo: '/' });
         });
 
