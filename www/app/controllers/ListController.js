@@ -32,7 +32,7 @@
             cordovaService.confirm("Do you want to remove event?", "Remove Event", function(button) {
                 if (button === 1) {
                     repoService.removeEvent(event);
-                    init();
+                    vm.events = repoService.getEvents()
                     messageBusService.pub("stats.up");
                 }
             })
