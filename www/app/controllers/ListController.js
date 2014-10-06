@@ -29,13 +29,13 @@
 
         function removeEvent(event, evt) {
             evt.preventDefault();
-            cordovaService.confirm("Do you want to remove event?", "Remove Event", function(button) {
-                if (button === 1) {
+            //cordovaService.confirm("Do you want to remove event?", "Remove Event", function(button) {
+                //if (button === 1) {
                     repoService.removeEvent(event);
-                    vm.events = repoService.getEvents();
+                    //vm.events = repoService.getEvents();
                     messageBusService.pub("stats.up");
-                }
-            })
+                //}
+            //})
         }
 
         function search() {
