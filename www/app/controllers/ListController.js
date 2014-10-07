@@ -10,9 +10,9 @@
         .module('GSVolunteeringEvents')
         .controller('ListController', ListController);
 
-    ListController.$inject = ['repository', 'cordovaService', 'messageBusService'];
+    ListController.$inject = ['$scope', 'repository', 'cordovaService', 'messageBusService'];
 
-    function ListController(repoService, cordovaService, messageBusService) {
+    function ListController($scope, repoService, cordovaService, messageBusService) {
         /* jshint validthis: true */
         var vm = this;
 
@@ -29,13 +29,14 @@
 
         function removeEvent(event, evt) {
             evt.preventDefault();
-            //cordovaService.confirm("Do you want to remove event?", "Remove Event", function(button) {
-                //if (button === 1) {
-                    repoService.removeEvent(event);
-                    //vm.events = repoService.getEvents();
-                    messageBusService.pub("stats.up");
-                //}
-            //})
+            cordovaService.confirm("Do you want to remove event?", "Remove Event", function(button) {
+                if (button === 1) {
+                    $scope.$apply(function(){
+                        repoService.removeEvent(event);
+                        messageBusService.pub("stats.up");
+                    });
+                }
+            })
         }
 
         function search() {
