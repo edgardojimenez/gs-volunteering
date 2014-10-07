@@ -132,7 +132,7 @@
 
         function onPause() {
             console.log("APP - OnPause");
-            storage.setData(JSON.stringify(dataSource.data)).then(function(e) {
+            storage.setData(angular.toJson(dataSource.data)).then(function(e) {
                 console.log("APP - post set data");
             });
         }

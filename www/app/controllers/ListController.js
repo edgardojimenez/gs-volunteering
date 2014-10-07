@@ -10,9 +10,9 @@
         .module('GSVolunteeringEvents')
         .controller('ListController', ListController);
 
-    ListController.$inject = ['repository', 'cordovaService', 'messageBusService'];
+    ListController.$inject = ['$scope', 'repository', 'cordovaService', 'messageBusService'];
 
-    function ListController(repoService, cordovaService, messageBusService) {
+    function ListController($scope, repoService, cordovaService, messageBusService) {
         /* jshint validthis: true */
         var vm = this;
 
