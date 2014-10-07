@@ -5,12 +5,11 @@
 - Add more search options
 - Test in windows phone
 - Fix the scroll
-- Fix the delete refresh
 - Add backup
 - find out where data is save
 - change splash
 - add find as you type on the event
--
+- Error; when clear needs to update the title
 
 - Wind phone 8
 	- fix the images

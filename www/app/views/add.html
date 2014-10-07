@@ -28,18 +28,14 @@
                             <div pickadate ng-model="vm.pickadate.date"  min-date="vm.pickadate.minDate" max-date="vm.pickadate.maxDate" on-select="vm.closeCalendar()" ></div>
                         </div>
                     </div>
-                    <!--<rzslider-->
-                            <!--rz-slider-floor="1"-->
-                            <!--rz-slider-ceil="24"-->
-                            <!--rz-slider-model="vm.slider.model"-->
-                            <!--rz-slider-step="1"></rzslider>-->
+
 					<input id="hours"
                         bs-form-control
-                        type="number"
+                        type="text"
                         ng-model="vm.event.hours"
                         placeholder="Event hours..."
                         label=""
-                        class="gs-number"
+                        pattern="[0-9]*"
                         />
 					<textarea type="text"
                         ng-model="vm.event.name"
