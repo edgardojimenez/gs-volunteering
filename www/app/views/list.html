@@ -2,12 +2,12 @@
 	<span><img class="logo" src="css/images/gs4.png" />&nbsp;&nbsp;<b>Events</b></span>
 </div>
 
-<input type="search" class="form-control app-search" placeholder="Search.." ng-model="vm.searchElement" ng-change="vm.search()" />
+<input type="search" class="form-control app-search" placeholder="Search.." ng-model="vm.searchElement" />
 
 <div class="scrollable">
 	<div class="scrollable-content">
 		<div class="list-group" >
-			<div ng-repeat="event in vm.events">
+			<div ng-repeat="event in vm.events | filter:{name:vm.searchElement}">
 				<a href="#/add/{{ event.id }}" class="list-group-item">
 					<table style="width: 100%; padding: 3px">
 						<tr>

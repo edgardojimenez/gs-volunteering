@@ -18,8 +18,7 @@
 
         vm.events;
         vm.removeEvent = removeEvent;
-        vm.search = search;
-        vm.searchElement = "";
+        vm.searchElement;
 
         init();
 
@@ -30,18 +29,16 @@
         function removeEvent(event, evt) {
             evt.preventDefault();
             cordovaService.confirm("Do you want to remove event?", "Remove Event", function(button) {
-                if (button === 1) {
-                    $scope.$apply(function(){
-                        repoService.removeEvent(event);
-                        messageBusService.pub("stats.up");
-                    });
-                }
+                    if (button === 1) {
+                        $scope.$apply(function(){
+                            repoService.removeEvent(event);
+                            messageBusService.pub("stats.up");
+                        });
+                    }
+            }, function() {
+                    repoService.removeEvent(event);
+                    messageBusService.pub("stats.up");
             })
-        }
-
-        function search() {
-            vm.events = repoService.searchEvents(vm.searchElement);
-            messageBusService.pub("stats.up");
         }
     }
 

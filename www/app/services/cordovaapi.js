@@ -98,12 +98,12 @@
 
         }
 
-        function confirm(message, title, onConfirm) {
+        function confirm(message, title, onConfirmAsync, onConfirm) {
             if ($window.navigator.notification) {
-                $window.navigator.notification.confirm(message, onConfirm, title);
+                $window.navigator.notification.confirm(message, onConfirmAsync, title);
             } else {
                 if ($window.confirm(message)) {
-                    onConfirm(1);
+                    onConfirm();
                 }
             }
         }

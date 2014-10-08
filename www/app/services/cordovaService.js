@@ -25,8 +25,8 @@
 
             },
 
-            confirm: function (message, title, onConfirm) {
-                phone.confirm(message, title, onConfirm);
+            confirm: function (message, title, onConfirmAsync, onConfirm) {
+                phone.confirm(message, title, onConfirmAsync, onConfirm);
             },
 
             notify: function (message, duration, position) {

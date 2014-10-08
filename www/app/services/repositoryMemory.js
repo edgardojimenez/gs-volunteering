@@ -13,7 +13,7 @@
     repository.$inject = ['$filter','utils', 'dataSource'];
 
     function repository($filter, utils, dataSource) {
-        var currentData, service, filterParams;
+        var service, filterParams;
 
         init();
 
@@ -22,19 +22,17 @@
             getNewEvent: getNewEvent,
             getEvents: getEvents,
             addEvent: addEvent,
-            removeEvent: removeEvent,
-            searchEvents: searchEvents
+            removeEvent: removeEvent
         };
 
         function init() {
-            currentData = dataSource.data;
         }
 
         function getEvent(id) {
-            var len = currentData.length;
+            var len = dataSource.data.length;
             for (var i = 0; i < len; i++) {
-                if (currentData[i].id === id) {
-                    return currentData[i];
+                if (dataSource.data[i].id === id) {
+                    return dataSource.data[i];
                 }
             }
         }
@@ -47,11 +45,11 @@
         }
 
         function getEvents() {
-            return utils.sortByDate(currentData);
+            return utils.sortByDate(dataSource.data);
         }
 
         function addEvent(event) {
-            currentData.push(event);
+            dataSource.data.push(event);
         }
 
         function removeEvent(event) {
@@ -67,25 +65,7 @@
             if (index >= 0)
                 removeEvent = dataSource.data.splice(index,1);
 
-            searchEvents(filterParams);
-
             return removeEvent;
-        }
-
-        function searchEvents(filter) {
-            filterParams = filter;
-            if (filterParams) {
-                currentData = dataSource.data;
-                var data = currentData.filter(function(item){
-                    return (item.name.toLowerCase().indexOf(filterParams.toLowerCase()) > -1);
-                });
-
-                currentData = data;
-            } else {
-                currentData = dataSource.data;
-            }
-
-            return currentData
         }
 
         return service;
