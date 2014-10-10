@@ -6,7 +6,7 @@
 - Test in windows phone
 - Fix the scroll
 - Add backup
-- find out where data is save
+----- find out where data is save
 - change splash
 - add find as you type on the event
 - Error; when clear needs to update the title
@@ -14,3 +14,9 @@
 - Wind phone 8
 	- fix the images
 	- fix the slider menu
+
+
+- Search
+    - Change the input and add a button for search and clear
+    - Change the search as typed in to button
+    - Add a filter

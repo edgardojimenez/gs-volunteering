@@ -34,7 +34,8 @@
         }
 
         function getStorage(defer) {
-            $window.requestFileSystem($window.PERSISTENT, QUOTA_20MB, function (fs) {
+
+             $window.requestFileSystem($window.PERSISTENT, QUOTA_20MB, function (fs) {
                 fs.root.getFile("data.txt", null, function (fileEntry) {
                     fileEntry.file(function (file) {
                         var reader = new FileReader();
