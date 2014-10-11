@@ -41,6 +41,7 @@
         }
 
         function updateStats() {
+            statsService.setPeriod(new Date());
             vm.stats = statsService.stats();
         }
     }

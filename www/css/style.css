@@ -99,6 +99,7 @@ h1 {
 .gs-pickadate-container {
     width: 100%;
     margin: auto;
+    background-color: #ffffff;
 }
 
 #calendarOverlay .fa-times-circle-o {

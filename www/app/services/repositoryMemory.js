@@ -22,7 +22,8 @@
             getNewEvent: getNewEvent,
             getEvents: getEvents,
             addEvent: addEvent,
-            removeEvent: removeEvent
+            removeEvent: removeEvent,
+            getLastEvent: getLastEvent
         };
 
         function init() {
@@ -37,9 +38,13 @@
             }
         }
 
+        function getLastEvent() {
+            return dataSource.data[0];
+        }
+
         function getNewEvent(options) {
             if (options)
-                return { "id": options.id, "date": $filter("date")(options.date, 'MM/dd/yyyy'), "name": options.name, "hours": options.hours }
+                return { "id": utils.getId(), "date": $filter("date")(options.date, 'MM/dd/yyyy'), "name": options.name, "hours": options.hours }
 
             return { "id": utils.getId(), "date": $filter("date")(Date.now(), 'MM/dd/yyyy'), "name": null, "hours": null };
         }

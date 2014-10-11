@@ -17,18 +17,15 @@
         var vm = this,
             currentEvent = null;
 
-        vm.state = null;
         vm.event = null;
-        vm.addEvent = addEvent;
-        vm.clearEvent = clearEvent;
+        vm.saveEvent = saveEvent;
+        vm.newEvent = newEvent;
+        vm.lastEvent = lastEvent;
+        vm.copyEvent = copyEvent;
         vm.openCalendar = openCalendar;
         vm.closeCalendar = closeCalendar;
         vm.pickadate = {
             minDate: '2014-01-01'
-        };
-        vm.slider = {
-
-            model: 12
         };
 
         init();
@@ -36,53 +33,84 @@
         function init() {
 
             if ($route.current.params.id) {
-                vm.state = "Update";
                 currentEvent = repoService.getEvent($route.current.params.id);
 
                 vm.event = repoService.getNewEvent({
+                    id: currentEvent.id,
                     date: currentEvent.date,
                     name: currentEvent.name,
                     hours: currentEvent.hours
                 });
-
-            } else {
-                vm.state = "Add";
-                vm.event = repoService.getNewEvent();
-                vm.pickadate.date = formatToPickDate(vm.event.date);
             }
-            //var elem = document.querySelector("#calendarOverlay .overlay-body");
-            //elem.addEventListener("click", closeCalendar, false);
         }
 
-        function clearEvent() {
+        function newEvent() {
             currentEvent = null;
             vm.event = repoService.getNewEvent();
+            setPickDate(vm.event.date);
+            cordovaService.notify("New event!", 'short', 'top');
         }
 
-        function addEvent(event) {
+        function lastEvent() {
+            var tempEvent = repoService.getLastEvent();
+
+            if (!tempEvent) {
+                cordovaService.notify("there are no events!", 'long', 'center');
+                return;
+            }
+
+            vm.event = repoService.getNewEvent({
+                date: tempEvent.date,
+                name: tempEvent.name,
+                hours: tempEvent.hours
+            });
+
+            setPickDate(vm.event.date);
+
+            cordovaService.notify("Got last event!", 'short', 'top');
+        }
+
+        function copyEvent() {
+            currentEvent = null;
+            cordovaService.notify("Copied event!", 'short', 'top');
+        }
+
+        function saveEvent() {
             try {
-                var errors = validate(event);
+                var errors = validate(vm.event);
                 if (errors.length > 0) {
                     cordovaService.alert(errors.join('\r\n'), 'Validation');
                     return;
                 }
 
                 if (!currentEvent) {
-                    repoService.addEvent(event)
-                    cordovaService.notify("Event was added!", 'short', 'top');
-                    vm.event = repoService.getNewEvent();
+                    repoService.addEvent(vm.event);
                     messageBusService.pub("stats.up");
                 } else {
                     currentEvent.date = vm.event.date;
                     currentEvent.name = vm.event.name;
                     currentEvent.hours = vm.event.hours;
                     messageBusService.pub("stats.up");
-                    cordovaService.notify("Event was updated!", 'short', 'top');
                 }
+                setCurrentEvent();
+                cordovaService.notify("Saved event!", 'short', 'top');
 
             } catch (ex) {
                 cordovaService.notify("ERROR - " + ex.message, 'long', 'center');
             }
+        }
+
+        function clearEvent() {
+            vm.event = null;
+        }
+
+        function setCurrentEvent() {
+            currentEvent = {
+                id: vm.event.id,
+                date: vm.event.date,
+                name: vm.event.name,
+                hours: vm.event.hours
+            };
         }
 
         function validate(event) {
@@ -109,6 +137,10 @@
         function closeCalendar() {
             $rootScope.toggle('calendarOverlay', 'off');
             vm.event.date = formatFromPickDate(vm.pickadate.date);
+        }
+
+        function setPickDate(date) {
+            vm.pickadate.date = formatToPickDate(date);
         }
 
         function formatToPickDate(date) {

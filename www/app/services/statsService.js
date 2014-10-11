@@ -12,25 +12,24 @@
     statsService.$inject = ['messageBusService', 'repository'];
 
     function statsService(messageBusService, repoService) {
-        var events = [], statsData, service, refresh = true;
+        var events = [],
+            statsData,
+            service,
+            refresh = true,
+            period = {
+                day: null,
+                week: null,
+                month: null,
+                year: null
+            };
 
         messageBusService.sub('stats.up', function(e) {
             refresh = true;
         });
 
-        statsData = {
-            life:       { events: 2, hours: 0 },
-            dayAvg:     { events: 0, hours: 0 },
-            weekAvg:    { events: 0, hours: 0 },
-            yearAvg:    { events: 0, hours: 0 },
-            hoursMax:   { events: 0, hours: 0 },
-            hoursMin:   { events: 0, hours: 0 },
-            eventsMax:  { events: 0, hours: 0 },
-            eventsMin:  { events: 0, hours: 0 }
-        };
-
         service = {
-            stats: stats
+            stats: stats,
+            setPeriod: setPeriod
         };
 
         function stats() {
@@ -42,56 +41,77 @@
             return statsData;
         }
 
-
-        function calculate() {
-            events = repoService.getEvents();
-
-            calculateLife();
-            calculateDayAvg();
-            calculateWeekAvg();
-            calculateYearAvg();
-            calculateHoursMax();
-            calculateHoursMin();
-            calculateEventsMax();
-            calculateEventsMin();
-        }
-
-        function calculateLife() {
-            statsData.life.events = 0;
-            statsData.life.hours = 0;
-
-            statsData.life.events = events.length;
-            for (var i = 0, len = events.length; i < len; i++) {
-                statsData.life.hours += events[i].hours;
+        function initStatData() {
+            return {
+                life:    { events: 0, hours: 0 },
+                day:     { events: 0, hours: 0 },
+                week:    { events: 0, hours: 0 },
+                month:    { events: 0, hours: 0 },
+                year:    { events: 0, hours: 0 }
             }
         }
 
-        function calculateDayAvg() {
+        function calculate() {
+            var eventData;
+            events = repoService.getEvents();
 
+            statsData = initStatData();
+
+            statsData.life.events = events.length;
+            for (var i = 0, len = events.length; i < len; i++) {
+                eventData = {
+                    date: new Date(events[i].date),
+                    hours: parseInt(events[i].hours)
+                }
+
+                statsData.life.hours += eventData.hours;
+
+                calculateDayTotals(eventData);
+                calculateWeekTotals(eventData);
+                calculateMonthTotals(eventData);
+                calculateYearTotals(eventData);
+            }
         }
 
-        function calculateWeekAvg() {
-
+        function calculateDayTotals(event) {
+            if (event.date.getDate() === period.day){
+                statsData.day.hours += event.hours;
+                statsData.day.events++;
+            }
         }
 
-        function calculateYearAvg() {
-
+        function calculateWeekTotals(event) {
+            if (getWeek(event.date) === period.day){
+                statsData.day.hours += event.hours;
+                statsData.day.events++;
+            }
         }
 
-        function calculateHoursMax() {
-
+        function calculateMonthTotals(event) {
+            if (event.date.getMonth() === period.month){
+                statsData.month.hours += event.hours;
+                statsData.month.events++;
+            }
         }
 
-        function calculateHoursMin() {
-
+        function calculateYearTotals(event) {
+            if (event.date.getFullYear() === period.year){
+                statsData.year.hours += event.hours;
+                statsData.year.events++;
+            }
         }
 
-        function calculateEventsMax() {
-
+        function setPeriod(date) {
+            period.month = date.getMonth();
+            period.year = date.getFullYear();
+            period.day = date.getDate();
+            period.week = getWeek(date);
         }
 
-        function calculateEventsMin() {
-
+        function getWeek(date){
+            date.setHours(0,0,0);
+            date.setDate(date.getDate()+4-(date.getDay()||7));
+            return Math.ceil((((date-new Date(date.getFullYear(),0,1))/8.64e7)+1)/7);
         }
 
         return service;

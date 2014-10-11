@@ -114,7 +114,7 @@
                 }, function () {
                 });
             } else {
-                $window.alert(message);
+                console.log(message);
             }
         }
 
@@ -202,7 +202,6 @@
         }
 
         return api;
-
     }
 
 })();

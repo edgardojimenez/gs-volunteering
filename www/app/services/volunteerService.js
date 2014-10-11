@@ -40,7 +40,7 @@
         }
 
         function addVolunteerEvent(volunteerEvent) {
-            return repo.addEvent(volunteerEvent);
+            return repo.saveEvent(volunteerEvent);
         }
 
         function removeVolunteerEvents(volunteerEvent) {
