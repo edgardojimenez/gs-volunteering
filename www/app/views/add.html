@@ -13,10 +13,9 @@
                     </textarea>
                     <div class="input-group"  >
                         <input  class="form-control"
-                                type="number"
+                                type="text"
                                 ng-model="vm.event.date"
                                 placeholder="Date of event..."
-                                label="Date"
                                 />
                         <span
                                 class="btn btn-default input-group-addon"
@@ -42,7 +41,7 @@
 							<button type="button" class="btn btn-primary" ng-click="vm.saveEvent()">Save</button>
 						</div>
 						<div class="btn-group">
-							<button type="button" class="btn btn-default" ng-click="vm.newEvent()">New</button>
+							<button type="button" class="btn btn-default" ng-click="vm.newEvent(1)">New</button>
 						</div>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default" ng-click="vm.lastEvent()">Last</button>

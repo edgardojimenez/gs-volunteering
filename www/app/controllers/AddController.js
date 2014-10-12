@@ -41,14 +41,17 @@
                     name: currentEvent.name,
                     hours: currentEvent.hours
                 });
+            } else {
+                newEvent()
             }
         }
 
-        function newEvent() {
+        function newEvent(show) {
             currentEvent = null;
             vm.event = repoService.getNewEvent();
             setPickDate(vm.event.date);
-            cordovaService.notify("New event!", 'short', 'top');
+            if (show)
+                cordovaService.notify("New event!", 'short', 'top');
         }
 
         function lastEvent() {
