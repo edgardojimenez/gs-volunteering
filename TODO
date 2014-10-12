@@ -20,3 +20,8 @@
     - Change the input and add a button for search and clear
     - Change the search as typed in to button
     - Add a filter
+
+- Form
+    - Validate Date
+    - Have free form
+    - save hours as number
