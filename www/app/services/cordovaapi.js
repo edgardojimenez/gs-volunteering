@@ -37,9 +37,9 @@
                 $window.document.addEventListener("resume", onResume, false);
                 $window.document.addEventListener("online", onOnline, false);
                 $window.document.addEventListener("offline", onOffline, false);
-                $window.document.addEventListener("backbutton", onBackButton, false);
-                $window.document.addEventListener("showkeyboard", onShowKeyboard, false);
-                $window.document.addEventListener("hidekeyboard", onHideKeyboard, false);
+                //$window.document.addEventListener("backbutton", onBackButton, false);
+                //$window.document.addEventListener("showkeyboard", onShowKeyboard, false);
+                //$window.document.addEventListener("hidekeyboard", onHideKeyboard, false);
             } else {
                 console.log("APP - browser");
                 ready();
