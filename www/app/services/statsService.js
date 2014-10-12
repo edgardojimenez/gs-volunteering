@@ -60,7 +60,7 @@
             statsData.life.events = events.length;
             for (var i = 0, len = events.length; i < len; i++) {
                 eventData = {
-                    date: new Date(events[i].date),
+                    date: convertToDate(events[i].date),
                     hours: parseInt(events[i].hours)
                 }
 
@@ -81,9 +81,9 @@
         }
 
         function calculateWeekTotals(event) {
-            if (getWeek(event.date) === period.day){
-                statsData.day.hours += event.hours;
-                statsData.day.events++;
+            if (getWeek(event.date) === period.week){
+                statsData.week.hours += event.hours;
+                statsData.week.events++;
             }
         }
 
@@ -112,6 +112,10 @@
             date.setHours(0,0,0);
             date.setDate(date.getDate()+4-(date.getDay()||7));
             return Math.ceil((((date-new Date(date.getFullYear(),0,1))/8.64e7)+1)/7);
+        }
+
+        function convertToDate(date){
+            return new Date(date.substr(0,4), date.substr(5,2)-1, date.substr(8,2));
         }
 
         return service;
