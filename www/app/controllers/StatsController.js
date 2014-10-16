@@ -30,7 +30,6 @@
         init();
 
         function init() {
-
             vm.stats = statsService.stats();
         }
     }

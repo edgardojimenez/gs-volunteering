@@ -10,9 +10,10 @@
         .module('GSVolunteeringEvents')
         .controller('AddController', AddController);
 
-    AddController.$inject = ['$rootScope', 'repository', "$route", 'cordovaService', 'messageBusService' ];
+    AddController.$inject = ['$rootScope', 'repository', "$route", 'cordovaService',
+        'messageBusService', 'validationService', 'utils'];
 
-    function AddController($rootScope, repoService, $route, cordovaService, messageBusService) {
+    function AddController($rootScope, repoService, $route, cordovaService, messageBusService, validationService, utils) {
         /* jshint validthis: true */
         var vm = this,
             currentEvent = null;
@@ -41,6 +42,8 @@
                     name: currentEvent.name,
                     hours: currentEvent.hours
                 });
+
+                setPickDate(vm.event.date);
             } else {
                 newEvent()
             }
@@ -55,22 +58,22 @@
         }
 
         function lastEvent() {
-            var tempEvent = repoService.getLastEvent();
+            var lastEvent = repoService.getLastEvent();
 
-            if (!tempEvent) {
+            if (!lastEvent) {
                 cordovaService.notify("there are no events!", 'long', 'center');
                 return;
             }
 
             vm.event = repoService.getNewEvent({
-                date: tempEvent.date,
-                name: tempEvent.name,
-                hours: tempEvent.hours
+                date: lastEvent.date,
+                name: lastEvent.name,
+                hours: lastEvent.hours
             });
 
             setPickDate(vm.event.date);
 
-            cordovaService.notify("Got last event!", 'short', 'top');
+            cordovaService.notify("Last event!", 'short', 'top');
         }
 
         function copyEvent() {
@@ -86,16 +89,18 @@
                     return;
                 }
 
+                processDate(vm.event);
+                processHours(vm.event);
+
                 if (!currentEvent) {
                     repoService.addEvent(vm.event);
-                    messageBusService.pub("stats.up");
                 } else {
                     currentEvent.date = vm.event.date;
                     currentEvent.name = vm.event.name;
                     currentEvent.hours = vm.event.hours;
-                    messageBusService.pub("stats.up");
                 }
                 setCurrentEvent();
+                messageBusService.pub("stats.up");
                 cordovaService.notify("Saved event!", 'short', 'top');
 
             } catch (ex) {
@@ -117,20 +122,21 @@
         }
 
         function validate(event) {
-            var error = [];
-            if (!event.name)
-                error.push("Event name is required!");
+            var errors = [], error;
 
-            if (event.hours === null)
-                error.push("Event hours is required!");
+            error = validationService.validateName(event.name);
+            if (error)
+                errors.push(error);
 
-            if (event.hours !== null && isNaN(event.hours))
-                error.push("Event hours must be a number");
+            error = validationService.validateDate(event.date);
+            if (error)
+                errors.push(error);
 
-            if (event.hours !== null && !isNaN(event.hours) && !(event.hours > 0 && event.hours < 25))
-                error.push("Event hours must be a number from 1 - 24!");
+            error = validationService.validateHours(event.hours);
+            if (error)
+                errors.push(error);
 
-            return error;
+            return errors;
         }
 
         function openCalendar() {
@@ -139,21 +145,19 @@
 
         function closeCalendar() {
             $rootScope.toggle('calendarOverlay', 'off');
-            vm.event.date = formatFromPickDate(vm.pickadate.date);
+            vm.event.date = utils.formatDateNormal(vm.pickadate.date);
+        }
+
+        function processDate(event) {
+            event.date = utils.padDate(event.date);
+        }
+
+        function processHours(event) {
+            event.hours = utils.round(event.hours, 2);
         }
 
         function setPickDate(date) {
-            vm.pickadate.date = formatToPickDate(date);
-        }
-
-        function formatToPickDate(date) {
-            //12/24/2014
-            return date.substr(6,4) + "-" + date.substr(0,2) + "-" + date.substr(3,2);
-        }
-
-        function formatFromPickDate(date) {
-            //2014-12-24
-            return date.substr(5,2) + "/" + date.substr(8,2) + "/" + date.substr(0,4);
+            vm.pickadate.date = utils.formatDateStandard(date);
         }
     }
 

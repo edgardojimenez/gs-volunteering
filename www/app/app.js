@@ -15,8 +15,7 @@
             "ngRoute",
             "ngTouch",
             "mobile-angular-ui",
-            "pickadate",
-            "rzModule"
+            "pickadate"
         ]);
 
     angular

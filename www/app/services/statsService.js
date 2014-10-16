@@ -46,7 +46,7 @@
                 life:    { events: 0, hours: 0 },
                 day:     { events: 0, hours: 0 },
                 week:    { events: 0, hours: 0 },
-                month:    { events: 0, hours: 0 },
+                month:   { events: 0, hours: 0 },
                 year:    { events: 0, hours: 0 }
             }
         }
@@ -61,8 +61,8 @@
             for (var i = 0, len = events.length; i < len; i++) {
                 eventData = {
                     date: convertToDate(events[i].date),
-                    hours: parseInt(events[i].hours)
-                }
+                    hours: events[i].hours
+                };
 
                 statsData.life.hours += eventData.hours;
 
@@ -115,7 +115,7 @@
         }
 
         function convertToDate(date){
-            return new Date(date.substr(0,4), date.substr(5,2)-1, date.substr(8,2));
+            return new Date(date.substr(6,4), parseInt(date.substr(0,2))-1, date.substr(3,2));
         }
 
         return service;

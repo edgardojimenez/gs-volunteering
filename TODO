@@ -1,19 +1,23 @@
 
-- Finish settings
-- Finish about
-- Add sort -- Not that important
-- Add more search options
-- Test in windows phone
-- Fix the scroll
-- Add backup
------ find out where data is save
-- change splash
-- add find as you type on the event
-- Error; when clear needs to update the title
 
-- Wind phone 8
-	- fix the images
-	- fix the slider menu
+- Finish about
+- Add backup
+- Change the name of the file and location saved
+- change splash
+- add find as you type on the event name
+- Fix the error when first creates file
+- why does the spinner freeze when you have many records
+- Add unit test
+- add gulp
+-- rename cordovaapi
+
+
+
+Future
+- Add sort functionality
+- Settings
+    - Add default hours
+    - default after save, clear of leav on
 
 
 - Search
@@ -21,7 +25,4 @@
     - Change the search as typed in to button
     - Add a filter
 
-- Form
-    - Validate Date
-    - Have free form
-    - save hours as number
+

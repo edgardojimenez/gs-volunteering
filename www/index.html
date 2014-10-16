@@ -1,12 +1,4 @@
 ﻿<!DOCTYPE html>
-<!--
-  ** NOTE **
-
-  Run `grunt connect` then
-  navigate to http://localhost:3000/demo
-  to see this page in browser
-
-  -->
 <html>
 <head>
 	<meta charset="utf-8" />
@@ -18,7 +10,6 @@
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" href="lib/css/mobile-angular-ui-base.min.css" />
     <link rel="stylesheet" href="lib/css/angular-pickadate.css" />
-    <link rel="stylesheet" href="lib/css/rzslider.css" />
 	<link rel="stylesheet" href="css/style.css" />
 
 </head>
@@ -65,45 +56,14 @@
 	</div>
 
 </div>
-<script>
-    window.console = (function(win) {
-        var logs = [],
-                console = win.console;
-
-        function log(message) {
-            logs.push(message);
-            console.log(message);
-        }
-
-        function show() {
-            var list = '';
-            for (var i = 0; i < logs.length; i++) {
-                list += logs[i] + '\r\n';
-            }
-            console.log(list);
-            return list;
-        }
-
-        function clear() {
-            logs = [];
-        }
-
-        return {
-            log: log,
-            show: show,
-            clear: clear
-        };
-    })(window);
-
-</script>
-<script src="http://192.168.1.14:8080/target/target-script-min.js#anonymous"></script>
+<script type="text/javascript" src="lib/js/debug.js"></script>
+<script type="text/javascript" src="http://192.168.1.14:8080/target/target-script-min.js#anonymous"></script>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="lib/js/angular.min.js"></script>
 <script type="text/javascript" src="lib/js/angular-route.min.js"></script>
 <script type="text/javascript" src="lib/js/angular-touch.min.js"></script>
 <script type="text/javascript" src="lib/js/mobile-angular-ui.min.js"></script>
 <script type="text/javascript" src="lib/js/angular-pickadate.js"></script>
-<script type="text/javascript" src="lib/js/rzslider.min.js"></script>
 <script type="text/javascript" src="app/app.js"></script>
 <script type="text/javascript" src="app/services/dataService.js"></script>
 <script type="text/javascript" src="app/services/messageBusService.js"></script>
@@ -114,6 +74,7 @@
 <script type="text/javascript" src="app/services/cordovaService.js"></script>
 <script type="text/javascript" src="app/services/utils.js"></script>
 <script type="text/javascript" src="app/services/repositoryMemory.js"></script>
+<script type="text/javascript" src="app/services/validationService.js"></script>
 <script type="text/javascript" src="app/controllers/MasterController.js"></script>
 <script type="text/javascript" src="app/controllers/AddController.js"></script>
 <script type="text/javascript" src="app/controllers/ListController.js"></script>
