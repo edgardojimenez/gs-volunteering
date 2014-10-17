@@ -9,9 +9,9 @@
         .module('GSVolunteeringEvents')
         .factory('statsService', statsService);
 
-    statsService.$inject = ['messageBusService', 'repository'];
+    statsService.$inject = ['messageBusService', 'repository', 'utils'];
 
-    function statsService(messageBusService, repoService) {
+    function statsService(messageBusService, repoService, utils) {
         var events = [],
             statsData,
             service,
@@ -23,7 +23,7 @@
                 year: null
             };
 
-        messageBusService.sub('stats.up', function(e) {
+        messageBusService.sub('stats.up', function() {
             refresh = true;
         });
 
@@ -60,7 +60,7 @@
             statsData.life.events = events.length;
             for (var i = 0, len = events.length; i < len; i++) {
                 eventData = {
-                    date: convertToDate(events[i].date),
+                    date: utils.convertToDate(events[i].date),
                     hours: events[i].hours
                 };
 
@@ -71,6 +71,16 @@
                 calculateMonthTotals(eventData);
                 calculateYearTotals(eventData);
             }
+
+            roundAllHours();
+        }
+
+        function roundAllHours() {
+            statsData.life.hours = utils.round(statsData.life.hours, 2);
+            statsData.day.hours = utils.round(statsData.day.hours, 2);
+            statsData.week.hours = utils.round(statsData.week.hours, 2);
+            statsData.month.hours = utils.round(statsData.month.hours, 2);
+            statsData.year.hours = utils.round(statsData.year.hours, 2);
         }
 
         function calculateDayTotals(event) {
@@ -81,7 +91,7 @@
         }
 
         function calculateWeekTotals(event) {
-            if (getWeek(event.date) === period.week){
+            if (utils.getWeek(event.date) === period.week){
                 statsData.week.hours += event.hours;
                 statsData.week.events++;
             }
@@ -105,17 +115,7 @@
             period.month = date.getMonth();
             period.year = date.getFullYear();
             period.day = date.getDate();
-            period.week = getWeek(date);
-        }
-
-        function getWeek(date){
-            date.setHours(0,0,0);
-            date.setDate(date.getDate()+4-(date.getDay()||7));
-            return Math.ceil((((date-new Date(date.getFullYear(),0,1))/8.64e7)+1)/7);
-        }
-
-        function convertToDate(date){
-            return new Date(date.substr(6,4), parseInt(date.substr(0,2))-1, date.substr(3,2));
+            period.week = utils.getWeek(date);
         }
 
         return service;

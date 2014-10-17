@@ -85,6 +85,16 @@
                 return date.substr(5,2) + "/" + date.substr(8,2) + "/" + date.substr(0,4);
             }
 
+            function getWeek(date){
+                date.setHours(0,0,0);
+                date.setDate(date.getDate()+4-(date.getDay()||7));
+                return Math.ceil((((date-new Date(date.getFullYear(),0,1))/8.64e7)+1)/7);
+            }
+
+            function convertToDate(date){
+                return new Date(date.substr(6,4), parseInt(date.substr(0,2))-1, date.substr(3,2));
+            }
+
             return {
                 trim: trim,
                 upperCase: upperCase,
@@ -93,7 +103,9 @@
                 padDate: padDate,
                 round: round,
                 formatDateStandard: formatDateStandard,
-                formatDateNormal: formatDateNormal
+                formatDateNormal: formatDateNormal,
+                getWeek: getWeek,
+                convertToDate: convertToDate
             };
         }
 })();
